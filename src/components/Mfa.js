@@ -1,24 +1,63 @@
-import React from "react"
+import React, {useEffect} from "react"
 
-// import firebase from 'firebase/compat/app';
+import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 
 import { auth } from "../firebase"
 
 
+
 export default function Mfa() {
     const user = auth.currentUser;
     console.log(user)
 
+    useEffect(() => {
+        // Setup a global captcha
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+            'enroll-button', {
+            size: 'invisible',
+            callback: function (response) {
+                console.log('captcha solved!');
+            },
+        });
+    }, [])
+
+
+    const enroll = async () => {
+        const phoneNumber = document.getElementById('enroll-phone').value;
+
+        const user = auth.currentUser;
+
+        const session = await user.multiFactor.getSession();
+
+        const phoneOpts = {
+            phoneNumber,
+            session,
+        };
+
+        const phoneAuthProvider = new firebase.auth.PhoneAuthProvider();
+
+        window.verificationId = await phoneAuthProvider.verifyPhoneNumber(
+            phoneOpts,
+            window.recaptchaVerifier
+        );
+
+        alert('sms text sent!');
+    };
     return (
         <div id='login-page'>
             <div id='login-card'>
                 <h2>MFA</h2>
 
-                <div
+                <div>
+                {/* add field for user phone number*/}
+                    <input id='enroll-phone' type="text"/>
+                    <button id='enroll-button' onClick={enroll}>Send Code</button>
 
+                {/* button to enroll in mfa*/}
 
+                </div>
 
                 <br/><br/>
 
