@@ -1,5 +1,6 @@
 import React, {useEffect} from "react"
 
+import { useHistory } from "react-router-dom"
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
@@ -11,6 +12,13 @@ import { auth } from "../firebase"
 export default function Mfa() {
     const user = auth.currentUser;
     console.log(user)
+
+    const history = useHistory()
+
+    async function handleLogout() {
+        await auth.signOut()
+        history.push("/")
+    }
 
     useEffect(() => {
         // Setup a global captcha
@@ -57,6 +65,9 @@ export default function Mfa() {
 
                 {/* button to enroll in mfa*/}
 
+                    <div onClick={handleLogout}>
+                        Logout
+                    </div>
                 </div>
 
                 <br/><br/>
