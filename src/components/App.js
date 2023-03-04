@@ -7,6 +7,7 @@ import { AuthProvider } from "../contexts/AuthContext"
 import Chats from "./Chats"
 import Mfa from "./Mfa"
 import Login from "./Login"
+import VerifyMfa from "./VerifyMfa";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
 
               <Route path="/chats" component={Chats} />
                 <Route path="/mfa" component={Mfa} />
+                <Route path="/verify-mfa" component={VerifyMfa} />
               <Route path="/" component={Login} />
             </Switch>
           </AuthProvider>

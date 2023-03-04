@@ -16,6 +16,7 @@ export default function Mfa() {
     const history = useHistory()
 
     async function handleLogout() {
+        // sign out borken
         await auth.signOut()
         history.push("/")
     }
@@ -52,6 +53,7 @@ export default function Mfa() {
         );
 
         alert('sms text sent!');
+        history.push("/verify-mfa")
     };
     return (
         <div id='login-page'>
