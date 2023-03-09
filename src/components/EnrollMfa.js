@@ -9,15 +9,17 @@ import { auth } from "../firebase"
 
 
 
-export default function Mfa() {
+export default function EnrollMfa() {
     const user = auth.currentUser;
     console.log(user)
 
     const history = useHistory()
 
     async function handleLogout() {
-        // sign out borken
-        await auth.signOut()
+        // sign out broken
+        const x = await auth.signOut()
+        console.log(x, 'logged out')
+        console.log(auth.currentUser, 'current user')
         history.push("/")
     }
 

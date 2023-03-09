@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { AuthProvider } from "../contexts/AuthContext"
 
 import Chats from "./Chats"
-import Mfa from "./Mfa"
+import EnrollMfa from "./EnrollMfa"
 import Login from "./Login"
 import VerifyMfa from "./VerifyMfa";
 
@@ -18,7 +18,7 @@ function App() {
             <Switch>
 
               <Route path="/chats" component={Chats} />
-                <Route path="/mfa" component={Mfa} />
+                <Route path="/mfa" component={EnrollMfa} />
                 <Route path="/verify-mfa" component={VerifyMfa} />
               <Route path="/" component={Login} />
             </Switch>

@@ -17,7 +17,7 @@ export function AuthProvider({ children }) {
         auth.onAuthStateChanged(user => {
             setUser(user)
             setLoading(false)
-            history.push('/mfa')
+            history.push('/chats')
         })
     }, [user, history])
 
