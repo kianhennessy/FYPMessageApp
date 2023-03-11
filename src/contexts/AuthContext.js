@@ -9,15 +9,24 @@ const AuthContext = React.createContext()
 export function useAuth() { return useContext(AuthContext) }
 
 export function AuthProvider({ children }) {
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [user, setUser] = useState()
     const history = useHistory()
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
-            setUser(user)
-            setLoading(false)
-            history.push('/chats')
+            if (user) {
+                console.log(user, 'user is logged in')
+                setUser(user)
+                setLoading(false)
+                history.push("/chats")
+            }
+            else {
+                console.log('user is logged out')
+                setUser()
+                setLoading(false)
+            }
+
         })
     }, [user, history])
 

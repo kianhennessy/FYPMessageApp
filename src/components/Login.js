@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 
 import { GoogleOutlined} from '@ant-design/icons'
 
@@ -10,6 +10,20 @@ import { auth } from "../firebase"
 
 export default function Login() {
 
+    useEffect(() => {
+        if (window.recaptchaVerifier) {
+            window.recaptchaVerifier.clear();
+        }
+        // Setup a global captcha
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+            'login-button', {
+                size: 'invisible',
+                callback: function (response) {
+                    console.log('captcha solved!');
+                },
+            });
+    }, [])
+
     const loginWithGoogle = async () => {
         try {
             await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
@@ -19,8 +33,20 @@ export default function Login() {
             }
         }
 
+        const phoneOpts = {
+            multiFactorHint: window.resolver.hints[0],
+            session: window.resolver.session,
+        };
+
+        const phoneAuthProvider = new firebase.auth.PhoneAuthProvider();
 
 
+        window.verificationId = await phoneAuthProvider.verifyPhoneNumber(
+            phoneOpts,
+            window.recaptchaVerifier
+        );
+
+        alert('sms text sent!');
     }
 
         return (
@@ -32,8 +58,11 @@ export default function Login() {
                         className='login-button google'
                         onClick={loginWithGoogle}
 
+
                     >
-                        <GoogleOutlined/> Sign In with Google
+                        <div id='login-button'/>
+
+                        <GoogleOutlined /> Sign In with Google
                     </div>
 
                     <br/><br/>
