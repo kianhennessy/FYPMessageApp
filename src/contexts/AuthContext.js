@@ -16,6 +16,10 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         auth.onAuthStateChanged(user => {
             if (user) {
+                if (user.multiFactor.enrolledFactors.length < 1 ) {
+                    history.push("/mfa")
+                    return
+                }
                 console.log(user, 'user is logged in')
                 setUser(user)
                 setLoading(false)

@@ -1,34 +1,35 @@
-import React, {useEffect} from "react"
+import React, { useEffect, useState } from "react";
 
-import { GoogleOutlined} from '@ant-design/icons'
+import { GoogleOutlined } from "@ant-design/icons";
 
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
-import 'firebase/compat/auth';
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+import "firebase/compat/auth";
 
-import { auth } from "../firebase"
+import { auth } from "../firebase";
 
 export default function Login() {
+    const [verificationId, setVerificationId] = useState(null);
+    const [code, setCode] = useState("");
 
     useEffect(() => {
         if (window.recaptchaVerifier) {
             window.recaptchaVerifier.clear();
         }
         // Setup a global captcha
-        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-            'login-button', {
-                size: 'invisible',
-                callback: function (response) {
-                    console.log('captcha solved!');
-                },
-            });
-    }, [])
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("login-button", {
+            size: "invisible",
+            callback: function (response) {
+                console.log("captcha solved!");
+            },
+        });
+    }, []);
 
     const loginWithGoogle = async () => {
         try {
-            await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+            await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
         } catch (error) {
-            if (error.code === 'auth/multi-factor-auth-required') {
+            if (error.code === "auth/multi-factor-auth-required") {
                 window.resolver = error.resolver;
             }
         }
@@ -40,36 +41,54 @@ export default function Login() {
 
         const phoneAuthProvider = new firebase.auth.PhoneAuthProvider();
 
+        setVerificationId(
+            await phoneAuthProvider.verifyPhoneNumber(phoneOpts, window.recaptchaVerifier)
+        );
+        alert("sms text sent!");
+    };
 
-        window.verificationId = await phoneAuthProvider.verifyPhoneNumber(
-            phoneOpts,
-            window.recaptchaVerifier
+    const handleCodeChange = (event) => {
+        setCode(event.target.value);
+    };
+
+    const handleVerifyCode = async () => {
+
+        const cred = firebase.auth.PhoneAuthProvider.credential(
+            verificationId,
+            code
         );
 
-        alert('sms text sent!');
-    }
+        const multiFactorAssertion = firebase.auth.PhoneMultiFactorGenerator.assertion(
+            cred
+        );
 
-        return (
-            <div id='login-page'>
-                <div id='login-card'>
-                    <h2>Login</h2>
+        const credential = await window.resolver.resolveSignIn(multiFactorAssertion);
 
-                    <div
-                        className='login-button google'
-                        onClick={loginWithGoogle}
+        console.log(credential);
 
+        alert("logged in!");
+    };
 
-                    >
-                        <div id='login-button'/>
+    return (
+        <div id="login-page">
+            <div id="login-card">
+                <h2>Login</h2>
 
-                        <GoogleOutlined /> Sign In with Google
-                    </div>
+                <div className="login-button google" onClick={loginWithGoogle}>
+                    <div id="login-button"/>
 
-                    <br/><br/>
+                    <GoogleOutlined/> Sign In with Google
+                </div>
 
+                <br/>
+                <br/>
 
+                <div>
+                    <label htmlFor="verification-code-input">Verification Code:</label>
+                    <input type="text" id="verification-code-input" value={code} onChange={handleCodeChange}/>
+                    <button onClick={handleVerifyCode}>Verify Code</button>
                 </div>
             </div>
-        )
-    }
-
+        </div>
+    );
+}
