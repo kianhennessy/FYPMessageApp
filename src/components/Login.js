@@ -7,10 +7,13 @@ import "firebase/compat/firestore";
 import "firebase/compat/auth";
 
 import { auth } from "../firebase";
+import {useHistory} from "react-router-dom";
+
 
 export default function Login() {
     const [verificationId, setVerificationId] = useState(null);
     const [code, setCode] = useState("");
+    const history = useHistory()
 
     useEffect(() => {
         if (window.recaptchaVerifier) {
@@ -24,6 +27,11 @@ export default function Login() {
             },
         });
     }, []);
+
+    async function handleLogout() {
+        await auth.signOut()
+        history.push("/")
+    }
 
     const loginWithGoogle = async () => {
         try {
@@ -87,7 +95,9 @@ export default function Login() {
                     <label htmlFor="verification-code-input">Verification Code:</label>
                     <input type="text" id="verification-code-input" value={code} onChange={handleCodeChange}/>
                     <button onClick={handleVerifyCode}>Verify Code</button>
+                    <button onClick={handleLogout}>Logout</button>
                 </div>
+
             </div>
         </div>
     );
