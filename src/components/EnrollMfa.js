@@ -40,6 +40,7 @@ export default function EnrollMfa() {
 
         const user = auth.currentUser;
 
+        console.log(user.multiFactor)
         const session = await user.multiFactor.getSession();
 
         const phoneOpts = {

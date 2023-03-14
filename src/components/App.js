@@ -16,8 +16,7 @@ function App() {
         <Router>
           <AuthProvider>
             <Switch>
-
-              <Route path="/chats" component={Chats} />
+                <Route path="/chats" component={Chats} />
                 <Route path="/mfa" component={EnrollMfa} />
                 <Route path="/verify-mfa" component={VerifyMfa} />
               <Route path="/" component={Login} />
