@@ -8,6 +8,7 @@ import Chats from "./Chats"
 import EnrollMfa from "./EnrollMfa"
 import Login from "./Login"
 import VerifyMfa from "./VerifyMfa";
+import Signup from "./Signup";
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
         <Router>
           <AuthProvider>
             <Switch>
-
+                <Route path="/signup" component={Signup} />
               <Route path="/chats" component={Chats} />
                 <Route path="/mfa" component={EnrollMfa} />
                 <Route path="/verify-mfa" component={VerifyMfa} />
