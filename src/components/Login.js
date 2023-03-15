@@ -147,6 +147,7 @@ export default function Login() {
                                 Email:
                                 <input id={'login-email'} {...register('email', { required: true })} />
                             </label>
+                            <br/>
                             <label>
                                 Password:
                                 <input id={'login-password'}{...register('password', { required: true })} />
