@@ -2,9 +2,10 @@ import React, { useRef, useState, useEffect } from "react"
 
 import axios from 'axios'
 import { useHistory } from "react-router-dom"
-import { ChatEngine } from 'react-chat-engine'
+import { ChatEngine, deleteMessage } from 'react-chat-engine'
 
 import { useAuth } from "../contexts/AuthContext"
+
 
 import { auth } from "../firebase"
 
@@ -14,16 +15,32 @@ export default function Chats() {
     const { user } = useAuth()
     const history = useHistory()
 
+    const [chatId, setChatId] = useState()
+    const [messageToDelete, setMessageToDelete] = useState()
+
     async function handleLogout() {
         await auth.signOut()
         history.push("/")
     }
 
-    // async function getFile(url) {
-    //     let response = await fetch(url);
-    //     let data = await response.blob();
-    //     return new File([data], "test.jpg", { type: 'image/jpeg' });
-    // }
+    function handleMessages(chatId, messages) {
+        console.log(chatId, messages)
+        setChatId(chatId)
+        setMessageToDelete(messages[0].id)
+
+    }
+
+    function destructMessages() {
+        const props = {publicKey: '8afaea8d-1514-4b90-bc09-a5f244987db7',
+            userName: user.email,
+            userSecret: user.uid}
+
+
+        // add timer to this
+        deleteMessage(props, chatId, messageToDelete, () => {
+            console.log('message deleted')
+        })
+    }
 
     useEffect(() => {
         if (!didMountRef.current) {
@@ -53,9 +70,7 @@ export default function Chats() {
                     formdata.append('secret', user.uid)
 
 
-                    //getFile(user.photoURL)
-                        //.then(avatar => {
-                            //formdata.append('avatar', avatar, avatar.name)
+
 
                             axios.post(
                                 'https://api.chatengine.io/users/',
@@ -84,6 +99,7 @@ export default function Chats() {
                 <div onClick={handleLogout} className='logout-tab'>
                     Logout
                 </div>
+                <button onClick={destructMessages}>delete</button>
             </div>
 
             <ChatEngine
@@ -91,6 +107,7 @@ export default function Chats() {
                 projectID="8afaea8d-1514-4b90-bc09-a5f244987db7"
                 userName={user.email}
                 userSecret={user.uid}
+                onGetMessages={handleMessages}
             />
         </div>
     )
