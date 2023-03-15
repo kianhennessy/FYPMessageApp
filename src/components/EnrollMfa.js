@@ -65,6 +65,7 @@ export default function EnrollMfa() {
                 <h2>MFA</h2>
 
                 <div>
+                    <p>Please verify your email address before enrolling in additional factors</p>
                 {/* add field for user phone number*/}
                     <input id='enroll-phone' type="text"/>
                     <button id='enroll-button' onClick={enroll}>Send Code</button>

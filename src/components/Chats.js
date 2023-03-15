@@ -19,11 +19,11 @@ export default function Chats() {
         history.push("/")
     }
 
-    async function getFile(url) {
-        let response = await fetch(url);
-        let data = await response.blob();
-        return new File([data], "test.jpg", { type: 'image/jpeg' });
-    }
+    // async function getFile(url) {
+    //     let response = await fetch(url);
+    //     let data = await response.blob();
+    //     return new File([data], "test.jpg", { type: 'image/jpeg' });
+    // }
 
     useEffect(() => {
         if (!didMountRef.current) {
@@ -52,9 +52,10 @@ export default function Chats() {
                     formdata.append('username', user.email)
                     formdata.append('secret', user.uid)
 
-                    getFile(user.photoURL)
-                        .then(avatar => {
-                            formdata.append('avatar', avatar, avatar.name)
+
+                    //getFile(user.photoURL)
+                        //.then(avatar => {
+                            //formdata.append('avatar', avatar, avatar.name)
 
                             axios.post(
                                 'https://api.chatengine.io/users/',
@@ -64,7 +65,7 @@ export default function Chats() {
                                 .then(() => setLoading(false))
                                 .catch(e => console.log('e', e.response))
                         })
-                })
+                //})
             // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         }
