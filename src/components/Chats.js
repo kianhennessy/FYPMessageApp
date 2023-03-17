@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react"
 
 import axios from 'axios'
 import { useHistory } from "react-router-dom"
-import { ChatEngine, deleteMessage } from 'react-chat-engine'
+import { ChatEngine, deleteMessage, ChatFeed } from 'react-chat-engine'
 
 import { useAuth } from "../contexts/AuthContext"
 
@@ -15,31 +15,61 @@ export default function Chats() {
     const { user } = useAuth()
     const history = useHistory()
 
-    const [chatId, setChatId] = useState()
-    const [messageToDelete, setMessageToDelete] = useState()
+
+    const [displayMessages, setDisplayMessages] = useState([]);
 
     async function handleLogout() {
         await auth.signOut()
         history.push("/")
     }
 
-    function handleMessages(chatId, messages) {
-        console.log(chatId, messages)
-        setChatId(chatId)
-        setMessageToDelete(messages[0].id)
+    function renderChatFeed(chatAppProps) {
 
+
+        //console.log(chatAppProps)
+        chatAppProps.messages = displayMessages
+        return <ChatFeed {...chatAppProps} />
     }
 
-    function destructMessages() {
+    function handleMessages(chatId, messages) {
+        // console.log(chatId, messages)
+        setDisplayMessages(messages)
+
+
+        destructMessages(chatId, messages)
+
+    }
+    function destructMessages(chatId, messages) {
         const props = {publicKey: '8afaea8d-1514-4b90-bc09-a5f244987db7',
             userName: user.email,
             userSecret: user.uid}
 
+        if (messages.length === 0) {
+            return
+        }
 
-        // add timer to this
-        deleteMessage(props, chatId, messageToDelete, () => {
-            console.log('message deleted')
-        })
+        for(const messageToDelete of displayMessages) {
+            // console.log({messageToDelete})
+
+            const date1 = new Date(messageToDelete.created);
+            const date2 = new Date(); // current date and time
+
+            // const diffInMilliseconds = date2.getTime() - date1.getTime() + (30 * 60 * 1000)
+
+            setTimeout(() => {
+                console.log('deleting message', messageToDelete.id)
+                deleteMessage(props, chatId, messageToDelete.id, () => {
+
+                    const updatedMessages = displayMessages.filter((message) => {
+                        console.log(message)
+                        return message.id !== messageToDelete.id;
+                    });
+                    setDisplayMessages(updatedMessages);
+
+                    // setDisplayMessages(displayMessages.filter(message => message.id !== messageToDelete.id))
+                })
+            }, 1000)
+        }
     }
 
     useEffect(() => {
@@ -69,9 +99,6 @@ export default function Chats() {
                     formdata.append('username', user.email)
                     formdata.append('secret', user.uid)
 
-
-
-
                             axios.post(
                                 'https://api.chatengine.io/users/',
                                 formdata,
@@ -99,7 +126,6 @@ export default function Chats() {
                 <div onClick={handleLogout} className='logout-tab'>
                     Logout
                 </div>
-                <button onClick={destructMessages}>delete</button>
             </div>
 
             <ChatEngine
@@ -107,6 +133,7 @@ export default function Chats() {
                 projectID="8afaea8d-1514-4b90-bc09-a5f244987db7"
                 userName={user.email}
                 userSecret={user.uid}
+                renderChatFeed={renderChatFeed}
                 onGetMessages={handleMessages}
             />
         </div>
