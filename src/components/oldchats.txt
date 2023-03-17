@@ -15,9 +15,61 @@ export default function Chats() {
     const { user } = useAuth()
     const history = useHistory()
 
+
+    const [displayMessages, setDisplayMessages] = useState([]);
+
     async function handleLogout() {
         await auth.signOut()
         history.push("/")
+    }
+
+    function renderChatFeed(chatAppProps) {
+
+
+        //console.log(chatAppProps)
+        chatAppProps.messages = displayMessages
+        return <ChatFeed {...chatAppProps} />
+    }
+
+    function handleMessages(chatId, messages) {
+        // console.log(chatId, messages)
+        setDisplayMessages(messages)
+
+
+        destructMessages(chatId, messages)
+
+    }
+    function destructMessages(chatId, messages) {
+        const props = {publicKey: '8afaea8d-1514-4b90-bc09-a5f244987db7',
+            userName: user.email,
+            userSecret: user.uid}
+
+        if (messages.length === 0) {
+            return
+        }
+
+        for(const messageToDelete of displayMessages) {
+            // console.log({messageToDelete})
+
+            const date1 = new Date(messageToDelete.created);
+            const date2 = new Date(); // current date and time
+
+            // const diffInMilliseconds = date2.getTime() - date1.getTime() + (30 * 60 * 1000)
+
+            setTimeout(() => {
+                console.log('deleting message', messageToDelete.id)
+                deleteMessage(props, chatId, messageToDelete.id, () => {
+
+                    const updatedMessages = displayMessages.filter((message) => {
+                        console.log(message)
+                        return message.id !== messageToDelete.id;
+                    });
+                    setDisplayMessages(updatedMessages);
+
+                    // setDisplayMessages(displayMessages.filter(message => message.id !== messageToDelete.id))
+                })
+            }, 1000)
+        }
     }
 
     useEffect(() => {
@@ -81,29 +133,9 @@ export default function Chats() {
                 projectID="8afaea8d-1514-4b90-bc09-a5f244987db7"
                 userName={user.email}
                 userSecret={user.uid}
-                onGetMessages={(chatId, messages) => {
-                    console.log("Get Messages fired: ", messages);
-                    const props = {publicKey: '8afaea8d-1514-4b90-bc09-a5f244987db7',
-                        userName: user.email,
-                        userSecret: user.uid}
-                    messages.map((message) => {
-                        // If message is more than 5 seconds old, delete it
-                        const timeToGo = Math.max(0,5000 - (new Date() - new Date(message.created)))
-                        if(!message.deleting && message.id && (message.sender.username === user.email)) {
-                            message.deleting = true
-                            setTimeout(() => {
-                                console.log("Deleting Message");
-                                deleteMessage(props, chatId, message.id, () => {
-                                    // Refresh chat feed
-                                    setLoading(true);
-                                    setLoading(false);
-                                })
-                            }, timeToGo)
-                        }
-                    })
-                }}
+                renderChatFeed={renderChatFeed}
+                onGetMessages={handleMessages}
             />
-
         </div>
     )
 }
