@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react"
 
 import axios from 'axios'
 import { useHistory } from "react-router-dom"
-import { ChatEngine, deleteMessage, ChatFeed } from 'react-chat-engine'
+import { ChatEngine, deleteMessage } from 'react-chat-engine'
 
 import { useAuth } from "../contexts/AuthContext"
 
@@ -81,6 +81,11 @@ export default function Chats() {
                 projectID="8afaea8d-1514-4b90-bc09-a5f244987db7"
                 userName={user.email}
                 userSecret={user.uid}
+                onDeleteMessage={() => {
+                    setLoading(true);
+                    setLoading(false);
+                    }
+                }
                 onGetMessages={(chatId, messages) => {
                     console.log("Get Messages fired: ", messages);
                     const props = {publicKey: '8afaea8d-1514-4b90-bc09-a5f244987db7',
@@ -93,11 +98,13 @@ export default function Chats() {
                             message.deleting = true
                             setTimeout(() => {
                                 console.log("Deleting Message");
-                                deleteMessage(props, chatId, message.id, () => {
-                                    // Refresh chat feed
-                                    setLoading(true);
-                                    setLoading(false);
-                                })
+                                    deleteMessage(props, chatId, message.id, () => {
+                                        console.log(message.id, "deleted");
+
+                                        // Refresh chat feed
+                                        setLoading(true);
+                                        setLoading(false);
+                                    })
                             }, timeToGo)
                         }
                     })

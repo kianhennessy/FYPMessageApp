@@ -11,15 +11,19 @@ import { useHistory } from "react-router-dom"
 
 import { useForm } from 'react-hook-form';
 
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
 export default function Login() {
     const [verificationId, setVerificationId] = useState(null);
     const [code, setCode] = useState("");
+    const [alert, setAlert] = useState(null);
     const history = useHistory();
 
     // login form
     const { register, handleSubmit } = useForm();
+
     async function handleLogout() {
-        // sign out borken
         await auth.signOut()
         history.push("/")
     }
@@ -28,7 +32,14 @@ export default function Login() {
         history.push("/signup")
     }
 
-
+    function BasicAlerts({alertInfo}) {
+        console.log(alertInfo);
+        return (
+            <Stack sx={{ width: '100%' }} spacing={2}>
+                <Alert severity={alertInfo.severity}>{alertInfo.message}</Alert>
+            </Stack>
+        );
+    }
 
     const onSubmit = async (data) => {
         const { email, password } = data;
@@ -74,7 +85,9 @@ export default function Login() {
         setVerificationId(
             await phoneAuthProvider.verifyPhoneNumber(phoneOpts, window.recaptchaVerifier)
         );
-        alert("sms text sent!");
+        // alert("sms text sent!");
+        setAlert({severity:"info", message: "SMS Sent Successfully"});
+
     };
 
 
@@ -123,11 +136,12 @@ export default function Login() {
 
         console.log(credential);
 
-        alert("logged in!");
+        setAlert({severity:"success", message: "logged in successfully"});
     };
 
     return (
         <div id="login-page">
+            {alert && <BasicAlerts alertInfo={alert} />}
             <div id="login-card">
                 <h2>Login</h2>
 
