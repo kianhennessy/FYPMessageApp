@@ -48,7 +48,7 @@ function ResetPassword(){
 
             setTimeout(() => {
                 setShowErrorAlert(false);
-            }, 3000);
+            }, 4000);
         }
 
         event.preventDefault();
@@ -68,7 +68,7 @@ function ResetPassword(){
                 const timer = setTimeout(() => {
                     setShowAlert(false);
                     history.push('/login');
-                }, 5000);
+                }, 7000);
 
                 // Clean up the timer when the component is unmounted or showAlert changes
                 return () => clearTimeout(timer);
@@ -90,7 +90,8 @@ function ResetPassword(){
 
             <Snackbar open={showAlert}>
                 <Alert onClose={() => setShowAlert(false)} severity="success" sx={{ width: '100%' }}>
-                    Password reset successful! Redirecting to login page...
+                    Password reset email sent successfully! Please check your email.
+                    Redirecting to login page...
                 </Alert>
             </Snackbar>
             <Snackbar open={showErrorAlert} autoHideDuration={5000} onClose={() => setShowErrorAlert(false)}>
