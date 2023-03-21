@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 
 import { GoogleOutlined } from "@ant-design/icons";
 
@@ -13,6 +13,29 @@ import { useForm } from 'react-hook-form';
 
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+
+const themeDark = createTheme({
+    palette: {
+        background: {
+            default: "#222222"
+        },
+        text: {
+            primary: "#ffffff"
+        }
+    }
+});
+
 
 export default function Login() {
     const [verificationId, setVerificationId] = useState(null);
@@ -140,52 +163,139 @@ export default function Login() {
     };
 
     return (
-        <div id="login-page">
-            {alert && <BasicAlerts alertInfo={alert} />}
-            <div id="login-card">
-                <h2>Login</h2>
+        // <div id="login-page">
+        //     {alert && <BasicAlerts alertInfo={alert} />}
+        //     <div id="login-card">
+        //         <h2>Login</h2>
+        //
+        //         <div className="login-button google" onClick={loginWithGoogle}>
+        //             <div id="login-button"/>
+        //
+        //             <GoogleOutlined/> Sign In with Google
+        //         </div>
+        //
+        //         <br/>
+        //         <br/>
+        //
+        //         <div>
+        //             <div>
+        //                 <form onSubmit={handleSubmit(onSubmit)}>
+        //                     <label>
+        //                         Email:
+        //                         <input id={'login-email'} {...register('email', { required: true })} />
+        //                     </label>
+        //                     <br/>
+        //                     <label>
+        //                         Password:
+        //                         <input id={'login-password'}{...register('password', { required: true })} />
+        //                     </label>
+        //                     <div onClick={loginWithEmailandPassword}>
+        //                         <button type="submit">Log in</button>
+        //                     </div>
+        //                 </form>
+        //
+        //             </div>
+        //             <br/>
+        //             <br/>
+        //             <br/>
+        //
+        //
+        //             <label htmlFor="verification-code-input">Verification Code:</label>
+        //             <input type="text" id="verification-code-input" value={code} onChange={handleCodeChange}/>
+        //             <button onClick={handleVerifyCode}>Verify Code</button>
+        //             <button onClick={handleLogout}>Logout</button>
+        //             <button onClick={goToSignup}>Signup</button>
+        //
+        //
+        //         </div>
+        //     </div>
+        // </div>
 
-                <div className="login-button google" onClick={loginWithGoogle}>
-                    <div id="login-button"/>
+        <ThemeProvider theme={themeDark}>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Log in
+                    </Typography>
+                    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
 
-                    <GoogleOutlined/> Sign In with Google
-                </div>
-
-                <br/>
-                <br/>
-
-                <div>
-                    <div>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <label>
-                                Email:
-                                <input id={'login-email'} {...register('email', { required: true })} />
-                            </label>
-                            <br/>
-                            <label>
-                                Password:
-                                <input id={'login-password'}{...register('password', { required: true })} />
-                            </label>
-                            <div onClick={loginWithEmailandPassword}>
-                            <button type="submit">Log in</button>
-                            </div>
-                        </form>
-
-                    </div>
-                    <br/>
-                    <br/>
-                    <br/>
-
-
-                    <label htmlFor="verification-code-input">Verification Code:</label>
-                    <input type="text" id="verification-code-input" value={code} onChange={handleCodeChange}/>
-                    <button onClick={handleVerifyCode}>Verify Code</button>
-                    <button onClick={handleLogout}>Logout</button>
-                    <button onClick={goToSignup}>Signup</button>
+                        <TextField
+                            placeholder="Email"
+                            required
+                            fullWidth
+                            margin={"normal"}
+                            id={'login-email'}{...register('email', { required: true })}
+                        />
+                        <TextField
+                            type="password"
+                            placeholder="Password"
+                            required
+                            fullWidth
+                            margin={"normal"}
+                            id={'login-password'}{...register('password', { required: true })}
+                        />
 
 
-                </div>
-            </div>
-        </div>
+                        <div onClick={loginWithEmailandPassword}>
+                            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={loginWithEmailandPassword}>Log in</Button>
+                        </div>
+
+                        <Typography>
+                            OR
+                        </Typography>
+                        <div className="login-button google" onClick={loginWithGoogle}>
+                            <div id="login-button"/>
+
+                            <GoogleOutlined/> Sign In with Google
+                        </div>
+
+                        {/*<label htmlFor="verification-code-input">Verification Code:</label>*/}
+                        <TextField
+                            placeholder="Verify code"
+                            required
+                            fullWidth
+                            type="text"
+                            id="verification-code-input"
+                            value={code}
+                            onChange={handleCodeChange}
+                            margin={"dense"}
+                            padding={"dense"}
+                        />
+
+                        <Button onClick={handleVerifyCode} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Verify Code</Button>
+                        <Grid container>
+
+                            <Grid item xs>
+                                <Link href="/signup" variant="body2" >
+                                    {"Don't have an account? Sign Up"}
+                                </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href="#" variant="body2" >
+                                    {"Forgot password?"}
+                                </Link>
+                            </Grid>
+                        </Grid>
+
+
+                    </Box>
+                </Box>
+
+
+
+
+            </Container>
+        </ThemeProvider>
     );
 }
