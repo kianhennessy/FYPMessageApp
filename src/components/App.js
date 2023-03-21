@@ -9,7 +9,7 @@ import EnrollMfa from "./EnrollMfa"
 import Login from "./Login"
 import VerifyMfa from "./VerifyMfa";
 import Signup from "./Signup";
-import LoginTest from "./Test";
+import ResetPassword from "./ResetPassword";
 
 function App() {
 
@@ -18,7 +18,7 @@ function App() {
         <Router>
           <AuthProvider>
             <Switch>
-                <Route path="/test" component={LoginTest}/>
+                <Route path="/reset-password" component={ResetPassword} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/chats" component={Chats} />
                 <Route path="/mfa" component={EnrollMfa} />
