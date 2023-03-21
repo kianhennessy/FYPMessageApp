@@ -124,6 +124,7 @@ export default function Login() {
         } catch (error) {
             if (error.code === "auth/multi-factor-auth-required") {
                 window.resolver = error.resolver;
+
             }
         }
 

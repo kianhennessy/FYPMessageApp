@@ -72,8 +72,6 @@ function SignUp() {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-
-
                     }}
                 >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -97,7 +95,6 @@ function SignUp() {
                             placeholder="Password"
                             required
                             fullWidth
-
                             margin={"normal"}
                             value={password} onChange={(e) => setPassword(e.target.value)} />
 
