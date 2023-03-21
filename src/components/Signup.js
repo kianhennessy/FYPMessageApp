@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
@@ -16,8 +16,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import CryptoJS from "crypto-js";
-
+import { Alert, AlertTitle } from '@mui/material';
+import Snackbar from "@mui/material/Snackbar";
 
 const themeDark = createTheme({
     palette: {
@@ -35,25 +35,81 @@ function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
 
+    const [showPassAlert, setShowPassAlert] = useState(false);
+
+    const [showEmailInUseAlert, setShowEmailInUseAlert] = useState(false);
+
+    // const [alert, setAlert] = useState({ open: false, message: '', severity: '' });
+    //
+    // const showAlert = (message, severity) => {
+    //     setAlert({ open: true, message, severity });
+    //     setTimeout(() => {
+    //         setAlert({ open: false, message: '', severity: '' });
+    //     }, 3000);
+    // }
 
     const handleSubmit = async (event) => {
+
+        const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+
+        if (!emailRegex.test(email)) {
+            setShowErrorAlert(true);
+
+            setTimeout(() => {
+                setShowErrorAlert(false);
+            }, 4000)
+        }
+
+        if (password.length < 6) {
+           setShowPassAlert(true);
+        }
+
         event.preventDefault();
-
-        // Hash the email
-        const hashedEmail = CryptoJS.SHA256(email).toString();
-
         try {
             await firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredential)=>{
                 // send verification mail.
                 userCredential.user.sendEmailVerification();
-                alert("Email sent");
+                // alert("Email sent");
             })
             console.log('User created!');
         } catch (error) {
             console.error(error);
+            if(error.code === "auth/email-already-in-use"){
+                setShowEmailInUseAlert(true);
+            }
         }
     };
+
+    useEffect(() => {
+        if (showErrorAlert) {
+            const timer = setTimeout(() => {
+                setShowErrorAlert(false);
+            }, 3000);
+
+            // Clean up the timer when the component is unmounted or showAlert changes
+            return () => clearTimeout(timer);
+        }
+        if (showPassAlert) {
+
+            const timer = setTimeout(() => {
+                setShowPassAlert(false);
+            }, 3000);
+
+            // Clean up the timer when the component is unmounted or showAlert changes
+            return () => clearTimeout(timer);
+        }
+        if (showEmailInUseAlert) {
+
+            const timer = setTimeout(() => {
+                setShowEmailInUseAlert(false);
+            }, 3000);
+
+            // Clean up the timer when the component is unmounted or showAlert changes
+            return () => clearTimeout(timer);
+        }
+    }, [showErrorAlert, showPassAlert]);
 
     return (
         // <form onSubmit={handleSubmit}>
@@ -64,6 +120,21 @@ function SignUp() {
 
 
         <ThemeProvider theme={themeDark}>
+            <Snackbar open={showErrorAlert} autoHideDuration={5000} onClose={() => setShowErrorAlert(false)}>
+                <Alert onClose={() => setShowErrorAlert(false)} severity="error" sx={{ width: '100%' }}>
+                    Please enter a valid email address.
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showPassAlert} autoHideDuration={5000} onClose={() => setShowPassAlert(false)}>
+                <Alert onClose={() => setShowPassAlert(false)} severity="error" sx={{ width: '100%' }}>
+                    Password must be at least 6 characters long.
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showEmailInUseAlert} autoHideDuration={5000} onClose={() => setShowEmailInUseAlert(false)}>
+                <Alert onClose={() => setShowEmailInUseAlert(false)} severity="error" sx={{ width: '100%' }}>
+                    Email already in use.
+                </Alert>
+            </Snackbar>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
