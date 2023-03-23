@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { Alert, AlertTitle } from '@mui/material';
+import { Alert } from '@mui/material';
 import Snackbar from "@mui/material/Snackbar";
 
 const themeDark = createTheme({
@@ -56,10 +56,6 @@ function SignUp() {
 
         if (!emailRegex.test(email)) {
             setShowErrorAlert(true);
-
-            setTimeout(() => {
-                setShowErrorAlert(false);
-            }, 4000)
         }
 
         if (password.length < 6) {

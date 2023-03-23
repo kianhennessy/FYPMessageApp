@@ -43,54 +43,61 @@ function VerifyMfa() {
         history.push("/")
     }
 
-    const [showAlert, setShowAlert] = useState(false);
+    // MUI alert for legit mfa code
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
-    const verifyMfaCode = async () => {
+    const [showError, setShowError] = useState(false);
+
+    const VerifyMfaCode = async (event) => {
+
         const code = document.getElementById('verify-mfa-code').value;
 
-        const cred = firebase.auth.PhoneAuthProvider.credential(
-            window.verificationId,
-            code
-        );
+        event.preventDefault();
+        setShowError(null)
+        try {
+            const cred = firebase.auth.PhoneAuthProvider.credential(
+                window.verificationId,
+                code
+            );
+            const multiFactorAssertion = firebase.auth.PhoneMultiFactorGenerator.assertion(
+                cred
+            );
+            const user = auth.currentUser;
+            await user.multiFactor.enroll(multiFactorAssertion, 'phone number');
+            setShowError(null);
+            // MUI alert for legit mfa code
+            setShowSuccessAlert(true);
+            await auth.signOut()
+        } catch (error) {
+            console.error(error);
+            if(error.code === 'auth/invalid-verification-code' || error.code === 'auth/missing-code') {
+                setShowError(true);
+            }
+        }
 
-        const multiFactorAssertion = firebase.auth.PhoneMultiFactorGenerator.assertion(
-            cred
-        );
-
-        const user = auth.currentUser;
-
-        await user.multiFactor.enroll(multiFactorAssertion, 'phone number');
-
-        // try{
-        //     await user.multiFactor.enroll(multiFactorAssertion, 'phone number');
-        // }
-        // catch (e) {
-        //     console.log(e)
-        //     if(e.code === "auth/invalid-verification-code"){
-        //         alert("Invalid code")
-        //     }
-        // }
-
-        setShowAlert(true);
-
-        // alert('MFA code verified');
-        await auth.signOut()
-        // history.push("/")
-        console.log(user)
     };
 
     useEffect(() => {
-        if (showAlert) {
-            // Hide the alert after 5 seconds and redirect to the login page
+        if (showSuccessAlert) {
+            // Hide the alert after 4 seconds and redirect to the login page
             const timer = setTimeout(() => {
-                setShowAlert(false);
+                setShowSuccessAlert(false);
                 history.push('/login');
+            }, 4000);
+
+            // Clean up the timer when the component is unmounted or showAlert changes
+            return () => clearTimeout(timer);
+        }
+
+        if(showError) {
+            const timer = setTimeout(() => {
+                setShowError(false);
             }, 3000);
 
             // Clean up the timer when the component is unmounted or showAlert changes
             return () => clearTimeout(timer);
         }
-    }, [showAlert, history]);
+    }, [showSuccessAlert, history]);
 
 
 
@@ -113,13 +120,16 @@ function VerifyMfa() {
         // </div>
 
         <ThemeProvider theme={themeDark}>
-
-            <Snackbar open={showAlert}>
-                <Alert onClose={() => setShowAlert(false)} severity="success" sx={{ width: '100%' }}>
+            <Snackbar open={showSuccessAlert}>
+                <Alert onClose={() => setShowSuccessAlert(false)} severity="success" sx={{ width: '100%' }}>
                     successfully enrolled in MFA, redirecting to login page
                 </Alert>
             </Snackbar>
-
+            <Snackbar open={showError}>
+                <Alert onClose={() => setShowError(false)} severity="error" sx={{ width: '100%' }}>
+                    invalid MFA code
+                </Alert>
+            </Snackbar>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -128,8 +138,6 @@ function VerifyMfa() {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-
-
                     }}
                 >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -142,7 +150,7 @@ function VerifyMfa() {
                         Please verify the code sent to your phone
                     </Typography>
 
-                    <Box component="form" noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={VerifyMfaCode} noValidate sx={{ mt: 1 }}>
 
                         <TextField
                             id='verify-mfa-code'
@@ -152,7 +160,7 @@ function VerifyMfa() {
                             required
                             margin="normal"
                         />
-                        <Button id='submit-code' onClick={verifyMfaCode} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}> submit mfa code</Button>
+                        <Button id='submit-code' onClick={VerifyMfaCode} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}> submit mfa code</Button>
 
                         <Grid container justifyContent={'center'}>
                             <Grid item>
@@ -165,9 +173,7 @@ function VerifyMfa() {
                 </Box>
             </Container>
         </ThemeProvider>
-
     )
-
 }
 
 export default VerifyMfa;
