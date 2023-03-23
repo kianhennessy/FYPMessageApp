@@ -88,7 +88,6 @@ export default function Login() {
     }, []);
 
 
-
     const loginWithGoogle = async () => {
         try {
             await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
@@ -108,7 +107,7 @@ export default function Login() {
         setVerificationId(
             await phoneAuthProvider.verifyPhoneNumber(phoneOpts, window.recaptchaVerifier)
         );
-        // alert("sms text sent!");
+        alert("sms text sent!");
         setAlert({severity:"info", message: "SMS Sent Successfully"});
 
     };
@@ -138,7 +137,7 @@ export default function Login() {
         setVerificationId(
             await phoneAuthProvider.verifyPhoneNumber(phoneOpts, window.recaptchaVerifier)
         );
-        alert("sms text sent!");
+        // alert("sms text sent!");
     };
 
     const handleCodeChange = (event) => {

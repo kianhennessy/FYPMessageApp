@@ -2,12 +2,14 @@ import React, { useRef, useState, useEffect } from "react"
 
 import axios from 'axios'
 import { useHistory } from "react-router-dom"
-import { ChatEngine, deleteMessage } from 'react-chat-engine'
+import { ChatEngine, deleteMessage, getOrCreateChat } from 'react-chat-engine'
 
 import { useAuth } from "../contexts/AuthContext"
 
 
 import { auth } from "../firebase"
+
+
 
 export default function Chats() {
     const didMountRef = useRef(false)
