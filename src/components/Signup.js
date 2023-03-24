@@ -41,6 +41,8 @@ function SignUp() {
 
     const [showEmailInUseAlert, setShowEmailInUseAlert] = useState(false);
 
+    const [showInvalidCredAlert, setShowInvalidCredAlert] = useState(false);
+
     // const [alert, setAlert] = useState({ open: false, message: '', severity: '' });
     //
     // const showAlert = (message, severity) => {
@@ -60,6 +62,10 @@ function SignUp() {
 
         if (password.length < 6) {
            setShowPassAlert(true);
+        }
+
+        if (!emailRegex.test(email) && password.length < 6) {
+            setShowInvalidCredAlert(true)
         }
 
         event.preventDefault();
@@ -105,6 +111,15 @@ function SignUp() {
             // Clean up the timer when the component is unmounted or showAlert changes
             return () => clearTimeout(timer);
         }
+
+        if (showInvalidCredAlert) {
+                const timer = setTimeout(() => {
+                    setShowInvalidCredAlert(false);
+                }, 3000);
+
+                // Clean up the timer when the component is unmounted or showAlert changes
+                return () => clearTimeout(timer);
+        }
     }, [showErrorAlert, showPassAlert]);
 
     return (
@@ -129,6 +144,11 @@ function SignUp() {
             <Snackbar open={showEmailInUseAlert} autoHideDuration={5000} onClose={() => setShowEmailInUseAlert(false)}>
                 <Alert onClose={() => setShowEmailInUseAlert(false)} severity="error" sx={{ width: '100%' }}>
                     Email already in use.
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showInvalidCredAlert} autoHideDuration={5000} onClose={() => setShowInvalidCredAlert(false)}>
+                <Alert onClose={() => setShowInvalidCredAlert(false)} severity="error" sx={{ width: '100%' }}>
+                    Please enter a valid email address and password.
                 </Alert>
             </Snackbar>
             <Container component="main" maxWidth="xs">

@@ -45,6 +45,9 @@ export default function Login() {
     const [alert, setAlert] = useState(null);
     const history = useHistory();
 
+    // MUI alerts
+    //const
+
     // login form
     const { register, handleSubmit } = useForm();
 
@@ -85,6 +88,7 @@ export default function Login() {
     const loginWithGoogle = async () => {
         try {
             await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+            history.push("/");
         } catch (error) {
             if (error.code === "auth/multi-factor-auth-required") {
                 window.resolver = error.resolver;
