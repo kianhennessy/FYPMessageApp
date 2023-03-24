@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 
 import { useHistory } from "react-router-dom"
 import firebase from 'firebase/compat/app';
@@ -45,6 +45,13 @@ export default function EnrollMfa() {
         history.push("/")
     }
 
+    // MUI alert
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [showInfoAlert, setShowInfoAlert] = useState(false);
+    const [showLoginError, setShowLoginError] = useState(false);
+    const [showPhoneError, setShowPhoneError] = useState(false);
+
     useEffect(() => {
         // Setup a global captcha
         window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -54,39 +61,104 @@ export default function EnrollMfa() {
                 console.log('captcha solved!');
             },
         });
-    }, [])
+
+        if (showSuccessAlert) {
+            // Hide the alert after 3 seconds and redirect to the login page
+            const timer = setTimeout(() => {
+                setShowSuccessAlert(false);
+                history.push("/verify-mfa");
+            }, 3000);
+
+            // Clean up the timer when the component is unmounted or showAlert changes
+            return () => clearTimeout(timer);
+        }
+
+        if(showError){
+            const timer = setTimeout(() => {
+                setShowError(false);
+            }, 3000);
+
+            // Clean up the timer when the component is unmounted or showAlert changes
+            return () => clearTimeout(timer);
+        }
+
+        if(showInfoAlert){
+            const timer = setTimeout(() => {
+                setShowInfoAlert(false);
+            }, 9000);
+
+            // Clean up the timer when the component is unmounted or showAlert changes
+            return () => clearTimeout(timer);
+        }
+
+        if(showLoginError){
+            const timer = setTimeout(() => {
+                setShowLoginError(false);
+            }, 3000);
+
+            // Clean up the timer when the component is unmounted or showAlert changes
+            return () => clearTimeout(timer);
+        }
+
+    }, [showSuccessAlert, history, showError, showInfoAlert, showLoginError])
 
 
+    const showAlert = () => {
+        setShowInfoAlert(true);
+    }
+
+    window.onload = function () {
+        if(!localStorage.getItem('firstLoad')){
+            localStorage.setItem('firstLoad', 'true');
+            showAlert(true);
+        }
+    }
 
 
-    const enroll = async () => {
+    const Enroll = async (event) => {
+
+        const phoneNumberRegex = /^\+?[1-9]\d{1,14}$/;
+
+        if(!phoneNumberRegex.test(document.getElementById('enroll-phone').value)){
+            setShowPhoneError(true);
+        }
 
         const phoneNumber = document.getElementById('enroll-phone').value;
 
-        const user = auth.currentUser;
+        event.preventDefault();
+        setShowError(null)
 
-        console.log(user)
-        console.log(user.multiFactor)
-        const session = await user.multiFactor.getSession();
+        try {
+            const user = auth.currentUser;
+            console.log(user)
+            console.log(user.multiFactor)
+            const session = await user.multiFactor.getSession();
 
+            const phoneOpts = {
+                phoneNumber,
+                session,
+            };
 
-        const phoneOpts = {
-            phoneNumber,
-            session,
-        };
+            const phoneAuthProvider = new firebase.auth.PhoneAuthProvider();
 
-        const phoneAuthProvider = new firebase.auth.PhoneAuthProvider();
+            window.verificationId = await phoneAuthProvider.verifyPhoneNumber(
+                phoneOpts,
+                window.recaptchaVerifier
+            );
+            setShowSuccessAlert(true);
 
-
-        window.verificationId = await phoneAuthProvider.verifyPhoneNumber(
-            phoneOpts,
-            window.recaptchaVerifier
-        );
-
-        alert('sms text sent!');
-        history.push("/verify-mfa")
+            // alert('sms text sent!');
+            // history.push("/verify-mfa")
+        } catch (error) {
+            console.log(error)
+            if(error.code === 'auth/unverified-email'){
+                setShowError(true);
+            }
+            if(error.code === 'auth/requires-recent-login'){
+                setShowLoginError(true)
+            }
+        }
     };
-
 
 
     return (
@@ -110,7 +182,31 @@ export default function EnrollMfa() {
         // </div>
 
         <ThemeProvider theme={themeDark}>
-
+            <Snackbar open={showSuccessAlert}>
+                <Alert onClose={() => setShowSuccessAlert(false)} severity="success" sx={{ width: '100%' }}>
+                    sms text sent!
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showError}>
+                <Alert onClose={() => setShowError(false)} severity="error" sx={{ width: '100%' }}>
+                    Please Verify Email, refresh page and try again
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showInfoAlert}>
+                <Alert onClose={() => setShowInfoAlert(false)} severity="info" sx={{ width: '100%' }}>
+                    A verification email has been sent to your email address, please verify your email address before enrolling in additional factors
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showLoginError}>
+                <Alert onClose={() => setShowLoginError(false)} severity="error" sx={{ width: '100%' }}>
+                    Please login again
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showPhoneError}>
+                <Alert onClose={() => setShowPhoneError(false)} severity="error" sx={{ width: '100%' }}>
+                    Please enter a valid phone number
+                </Alert>
+            </Snackbar>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -145,7 +241,8 @@ export default function EnrollMfa() {
                             fullWidth
                             margin={"normal"}
                         />
-                        <Button id='enroll-button' fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={enroll}>Send Code</Button>
+                        <div id='enroll-button'></div>
+                        <Button id='enroll-button' fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={Enroll}>Send Code</Button>
 
                         <Grid container justifyContent={'center'}>
                             <Grid item>
@@ -156,7 +253,6 @@ export default function EnrollMfa() {
                         </Grid>
                     </Box>
                 </Box>
-
             </Container>
         </ThemeProvider>
 

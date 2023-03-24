@@ -23,6 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 src/components/login.txt
 src/components/Test.js
-
-src/components/Test.js
-src/components/Test.js
+src/components/enrollmfa.txt
+src/components/enroll.txt
