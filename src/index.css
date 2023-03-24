@@ -95,3 +95,9 @@
   left: calc(50vw - 33px);
   top: calc(50vh - 22px);
 }
+
+#center-div {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}

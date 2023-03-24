@@ -128,9 +128,7 @@ function ResetPassword(){
                         />
                         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Reset Password</Button>
 
-
-
-                        <Grid container>
+                        <Grid container justifyContent={'center'}>
                             <Grid item>
                                 <Link href="/" variant="body2" >
                                     {"Home"}

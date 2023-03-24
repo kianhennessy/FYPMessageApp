@@ -25,6 +25,8 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 
+import Snackbar from "@mui/material/Snackbar";
+
 const themeDark = createTheme({
     palette: {
         background: {
@@ -46,23 +48,15 @@ export default function Login() {
     // login form
     const { register, handleSubmit } = useForm();
 
-    async function handleLogout() {
-        await auth.signOut()
-        history.push("/")
-    }
 
-    async function goToSignup() {
-        history.push("/signup")
-    }
-
-    function BasicAlerts({alertInfo}) {
-        console.log(alertInfo);
-        return (
-            <Stack sx={{ width: '100%' }} spacing={2}>
-                <Alert severity={alertInfo.severity}>{alertInfo.message}</Alert>
-            </Stack>
-        );
-    }
+    // function BasicAlerts({alertInfo}) {
+    //     console.log(alertInfo);
+    //     return (
+    //         <Stack sx={{ width: '100%' }} spacing={2}>
+    //             <Alert severity={alertInfo.severity}>{alertInfo.message}</Alert>
+    //         </Stack>
+    //     );
+    // }
 
     const onSubmit = async (data) => {
         const { email, password } = data;
@@ -107,8 +101,9 @@ export default function Login() {
         setVerificationId(
             await phoneAuthProvider.verifyPhoneNumber(phoneOpts, window.recaptchaVerifier)
         );
-        alert("sms text sent!");
-        setAlert({severity:"info", message: "SMS Sent Successfully"});
+
+        // alert("sms text sent!");
+        // setAlert({severity:"info", message: "SMS Sent Successfully"});
 
     };
 
@@ -123,7 +118,6 @@ export default function Login() {
         } catch (error) {
             if (error.code === "auth/multi-factor-auth-required") {
                 window.resolver = error.resolver;
-
             }
         }
 
@@ -159,57 +153,11 @@ export default function Login() {
 
         console.log(credential);
 
-        setAlert({severity:"success", message: "logged in successfully"});
+        // setAlert({severity:"success", message: "logged in successfully"});
     };
 
+
     return (
-        // <div id="login-page">
-        //     {alert && <BasicAlerts alertInfo={alert} />}
-        //     <div id="login-card">
-        //         <h2>Login</h2>
-        //
-        //         <div className="login-button google" onClick={loginWithGoogle}>
-        //             <div id="login-button"/>
-        //
-        //             <GoogleOutlined/> Sign In with Google
-        //         </div>
-        //
-        //         <br/>
-        //         <br/>
-        //
-        //         <div>
-        //             <div>
-        //                 <form onSubmit={handleSubmit(onSubmit)}>
-        //                     <label>
-        //                         Email:
-        //                         <input id={'login-email'} {...register('email', { required: true })} />
-        //                     </label>
-        //                     <br/>
-        //                     <label>
-        //                         Password:
-        //                         <input id={'login-password'}{...register('password', { required: true })} />
-        //                     </label>
-        //                     <div onClick={loginWithEmailandPassword}>
-        //                         <button type="submit">Log in</button>
-        //                     </div>
-        //                 </form>
-        //
-        //             </div>
-        //             <br/>
-        //             <br/>
-        //             <br/>
-        //
-        //
-        //             <label htmlFor="verification-code-input">Verification Code:</label>
-        //             <input type="text" id="verification-code-input" value={code} onChange={handleCodeChange}/>
-        //             <button onClick={handleVerifyCode}>Verify Code</button>
-        //             <button onClick={handleLogout}>Logout</button>
-        //             <button onClick={goToSignup}>Signup</button>
-        //
-        //
-        //         </div>
-        //     </div>
-        // </div>
 
         <ThemeProvider theme={themeDark}>
             <Container component="main" maxWidth="xs">
@@ -228,8 +176,8 @@ export default function Login() {
                     <Typography component="h1" variant="h5">
                         Log in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
 
+                    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
                         <TextField
                             placeholder="Email"
                             required
@@ -251,14 +199,18 @@ export default function Login() {
                             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={loginWithEmailandPassword}>Log in</Button>
                         </div>
 
-                        <Typography>
+                        <Typography align={'center'} padding={1}>
                             OR
                         </Typography>
-                        <div className="login-button google" onClick={loginWithGoogle}>
-                            <div id="login-button"/>
 
-                            <GoogleOutlined/> Sign In with Google
-                        </div>
+                        <Grid container justifyContent={'center'}>
+                            <Grid item padding={2}>
+                                <div className="login-button google" onClick={loginWithGoogle}>
+                                    <div id="login-button"/>
+                                    <GoogleOutlined/> Sign In with Google
+                                </div>
+                            </Grid>
+                        </Grid>
 
                         {/*<label htmlFor="verification-code-input">Verification Code:</label>*/}
                         <TextField
@@ -274,8 +226,8 @@ export default function Login() {
                         />
 
                         <Button onClick={handleVerifyCode} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Verify Code</Button>
-                        <Grid container>
 
+                        <Grid container>
                             <Grid item xs>
                                 <Link href="/signup" variant="body2" >
                                     {"Don't have an account? Sign Up"}
@@ -291,9 +243,6 @@ export default function Login() {
 
                     </Box>
                 </Box>
-
-
-
 
             </Container>
         </ThemeProvider>

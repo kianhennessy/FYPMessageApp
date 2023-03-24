@@ -166,7 +166,7 @@ function SignUp() {
                             value={password} onChange={(e) => setPassword(e.target.value)} />
 
                         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Sign up</Button>
-                        <Grid container>
+                        <Grid container justifyContent={'center'}>
                             <Grid item>
                                 <Link href="/" variant="body2" >
                                     {"Already have an account? Log in"}
