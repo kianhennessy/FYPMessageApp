@@ -51,6 +51,7 @@ export default function EnrollMfa() {
     const [showInfoAlert, setShowInfoAlert] = useState(false);
     const [showLoginError, setShowLoginError] = useState(false);
     const [showPhoneError, setShowPhoneError] = useState(false);
+    const [showCaptchError, setShowCaptchError] = useState(false);
 
     useEffect(() => {
         // Setup a global captcha
@@ -100,7 +101,18 @@ export default function EnrollMfa() {
             return () => clearTimeout(timer);
         }
 
-    }, [showSuccessAlert, history, showError, showInfoAlert, showLoginError])
+        if(showPhoneError){
+            const timer = setTimeout(() => {
+                setShowPhoneError(false);
+
+            }, 3000);
+
+            // Clean up the timer when the component is unmounted or showAlert changes
+            return () => clearTimeout(timer);
+        }
+
+
+    }, [showSuccessAlert, history, showError, showInfoAlert, showLoginError, showPhoneError])
 
 
     const showAlert = () => {
@@ -121,12 +133,16 @@ export default function EnrollMfa() {
 
         if(!phoneNumberRegex.test(document.getElementById('enroll-phone').value)){
             setShowPhoneError(true);
+            //hide the show error alert
+            setShowError(false);
         }
+
+
 
         const phoneNumber = document.getElementById('enroll-phone').value;
 
         event.preventDefault();
-        setShowError(null)
+        //setShowError(null)
 
         try {
             const user = auth.currentUser;
@@ -157,6 +173,25 @@ export default function EnrollMfa() {
             if(error.code === 'auth/requires-recent-login'){
                 setShowLoginError(true)
             }
+            if(error.message === 'reCAPTCHA has already been rendered in this element'){
+                setTimeout(() => {
+                    setShowPhoneError(false);
+                    window.location.reload();
+                }, 4000);
+
+                setShowError(false);
+                setShowPhoneError(false);
+                setShowCaptchError(true);
+            }
+
+
+            if(document.getElementById('enroll-phone').value === '' && error.code === 'auth/unverified-email'){
+
+                setShowPhoneError(true);
+                //hide the show error alert
+                setShowError(false);
+            }
+
         }
     };
 
@@ -183,7 +218,7 @@ export default function EnrollMfa() {
 
         <ThemeProvider theme={themeDark}>
             <Snackbar open={showSuccessAlert}>
-                <Alert onClose={() => setShowSuccessAlert(false)} severity="success" sx={{ width: '100%' }}>
+                <Alert onClose={() => setShowSuccessAlert(false)} severity="info" sx={{ width: '100%' }}>
                     sms text sent!
                 </Alert>
             </Snackbar>
@@ -207,6 +242,11 @@ export default function EnrollMfa() {
                     Please enter a valid phone number
                 </Alert>
             </Snackbar>
+            <Snackbar open={showCaptchError}>
+                <Alert onClose={() => setShowCaptchError(false)} severity="error" sx={{ width: '100%' }}>
+                    Page reloading due to reCAPTCHA error, please try again
+                </Alert>
+            </Snackbar>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -226,7 +266,7 @@ export default function EnrollMfa() {
                         2FA Enrollment
                     </Typography>
                     <Typography component="h1" textAlign={'center'} padding={2}>
-                        Please verify your email address before enrolling in additional factors
+                        A verification email has been sent to you email. Please verify your email address before enrolling in additional factors
                     </Typography>
                     <Typography component="h3" textAlign={'center'} padding={2}>
                         Note: This step will not work if do not verify your email address
