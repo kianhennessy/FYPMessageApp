@@ -33,6 +33,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import {Hidden} from "@mui/material";
 
 
 
@@ -76,7 +77,7 @@ export default function Login() {
             window.recaptchaVerifier.clear();
         }
         // Setup a global captcha
-        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("login-button", {
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha", {
             size: "invisible",
             callback: function (response) {
                 console.log("captcha solved!");
@@ -152,8 +153,9 @@ export default function Login() {
 
 
     const handleLoginButtonClick = () => {
-        // Call your existing onClick function here
+        //call loginWithEmailandPassword
         loginWithEmailandPassword();
+
 
         // Call the function to open the MUI dialog
         handleClickOpen();
@@ -202,7 +204,7 @@ export default function Login() {
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1" variant="h5" >
                         Log in
                     </Typography>
 
@@ -224,17 +226,43 @@ export default function Login() {
                         />
 
 
-                        <div onClick={loginWithEmailandPassword}>
+
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
-                                onClick={loginWithEmailandPassword}
+                                onClick={handleLoginButtonClick}
                             >
                                 Log in
                             </Button>
-                        </div>
+
+                            <Dialog open={open} onClose={handleClose}>
+
+                                <DialogTitle>Verify Code</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText>
+                                        Please enter the verification code sent to your phone.
+                                    </DialogContentText>
+                                    <TextField
+                                        color={"success"}
+                                        placeholder="Verify code"
+                                        required
+                                        fullWidth
+                                        type="text"
+                                        id="verification-code-input"
+                                        value={code}
+                                        onChange={handleCodeChange}
+                                        margin={"dense"}
+                                        padding={"dense"}
+                                    />
+
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={handleClose}>Cancel</Button>
+                                    <Button onClick={handleVerifyCode}>Verify</Button>
+                                </DialogActions>
+                            </Dialog>
 
                         <Typography align={'center'} padding={1}>
                             OR
@@ -243,7 +271,7 @@ export default function Login() {
                         <Grid container justifyContent={'center'}>
                             <Grid item padding={2}>
                                 <div className="login-button google" onClick={loginWithGoogle}>
-                                    <div id="login-button"/>
+
                                     <GoogleOutlined/> Sign In with Google
                                 </div>
                             </Grid>
@@ -252,26 +280,26 @@ export default function Login() {
 
 
 
-                        <TextField
-                            placeholder="Verify code"
-                            required
-                            fullWidth
-                            type="text"
-                            id="verification-code-input"
-                            value={code}
-                            onChange={handleCodeChange}
-                            margin={"dense"}
-                            padding={"dense"}
-                        />
+                        {/*<TextField*/}
+                        {/*    placeholder="Verify code"*/}
+                        {/*    required*/}
+                        {/*    fullWidth*/}
+                        {/*    type="text"*/}
+                        {/*    id="verification-code-input"*/}
+                        {/*    value={code}*/}
+                        {/*    onChange={handleCodeChange}*/}
+                        {/*    margin={"dense"}*/}
+                        {/*    padding={"dense"}*/}
+                        {/*/>*/}
 
-                        <Button
-                            onClick={handleVerifyCode}
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Verify Code
-                        </Button>
+                        {/*<Button*/}
+                        {/*    onClick={handleVerifyCode}*/}
+                        {/*    fullWidth*/}
+                        {/*    variant="contained"*/}
+                        {/*    sx={{ mt: 3, mb: 2 }}*/}
+                        {/*>*/}
+                        {/*    Verify Code*/}
+                        {/*</Button>*/}
 
                         <Grid container>
                             <Grid item xs>
@@ -280,13 +308,14 @@ export default function Login() {
                                 </Link>
                             </Grid>
                             <Grid item>
+
                                 <Link href="/reset-password" variant="body2" >
                                     {"Forgot password?"}
                                 </Link>
                             </Grid>
                         </Grid>
 
-
+                        <div id="recaptcha"/>
                     </Box>
                 </Box>
 
