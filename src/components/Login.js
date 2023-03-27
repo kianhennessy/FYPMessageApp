@@ -33,7 +33,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {Hidden} from "@mui/material";
+import {styled} from "@mui/material";
+
 
 
 
@@ -43,8 +44,11 @@ const themeDark = createTheme({
             default: "#222222"
         },
         text: {
-            primary: "#ffffff"
-        }
+            primary: "#00FF00"
+        },
+        secondary: {
+            main: "#00FF00"
+        },
     }
 });
 
@@ -55,12 +59,8 @@ export default function Login() {
     //const [alert, setAlert] = useState(null);
     const history = useHistory();
 
-
-
     // login form
     const { register, handleSubmit } = useForm();
-
-
 
     const onSubmit = async (data) => {
         const { email, password } = data;
@@ -163,8 +163,6 @@ export default function Login() {
 
 
 
-
-
     const handleCodeChange = (event) => {
         setCode(event.target.value);
     };
@@ -208,12 +206,13 @@ export default function Login() {
                         Log in
                     </Typography>
 
-                    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 2 }}>
                         <TextField
                             placeholder="Email"
                             required
                             fullWidth
                             margin={"normal"}
+
                             id={'login-email'}{...register('email', { required: true })}
                         />
                         <TextField
@@ -225,28 +224,32 @@ export default function Login() {
                             id={'login-password'}{...register('password', { required: true })}
                         />
 
-
-
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
+                                color={"secondary"}
                                 sx={{ mt: 3, mb: 2 }}
                                 onClick={handleLoginButtonClick}
+
                             >
                                 Log in
                             </Button>
 
-                            <Dialog open={open} onClose={handleClose}>
+                            <Dialog open={open} onClose={handleClose} PaperProps={{
+                                style: {
+                                    backgroundColor: "#222222",
+                                },
+                            }}>
 
-                                <DialogTitle>Verify Code</DialogTitle>
+                                <DialogTitle >Verify Code</DialogTitle>
                                 <DialogContent>
-                                    <DialogContentText>
+                                    <DialogContentText color={'secondary'}>
                                         Please enter the verification code sent to your phone.
                                     </DialogContentText>
                                     <TextField
                                         color={"success"}
-                                        placeholder="Verify code"
+                                        placeholder="code"
                                         required
                                         fullWidth
                                         type="text"
@@ -259,8 +262,8 @@ export default function Login() {
 
                                 </DialogContent>
                                 <DialogActions>
-                                    <Button onClick={handleClose}>Cancel</Button>
-                                    <Button onClick={handleVerifyCode}>Verify</Button>
+                                    <Button onClick={handleClose} color={'secondary'}>Cancel</Button>
+                                    <Button onClick={handleVerifyCode} color={'secondary'}>Verify</Button>
                                 </DialogActions>
                             </Dialog>
 
@@ -303,13 +306,13 @@ export default function Login() {
 
                         <Grid container>
                             <Grid item xs>
-                                <Link href="/signup" variant="body2" >
+                                <Link href="/signup" variant="body2" color={"secondary"} >
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
                             <Grid item>
 
-                                <Link href="/reset-password" variant="body2" >
+                                <Link href="/reset-password" variant="body2" color={"secondary"} >
                                     {"Forgot password?"}
                                 </Link>
                             </Grid>

@@ -8,6 +8,84 @@
 
 /* Chats Page */
 
+.ce-chat-title {
+  background-color: dimgrey !important;
+}
+
+#ce-feed-container{
+  background-color: #282c34 !important;
+}
+
+.ce-chat-form-container {
+  background-color: #282c34 !important;
+}
+
+.ce-chats-container {
+  background-color: #282c34 !important;
+}
+
+.ce-chat-list{
+    background-color: #282c34 !important;
+}
+
+.ce-chat-card{
+    background-color: deeppink !important;
+  border-radius: 12px;
+}
+
+.ce-chat-card.ce-active-chat-card{
+  background-color: blue !important;
+}
+
+.ce-settings {
+  background-color: #282c34 !important;
+}
+
+.ce-input{
+  background-color: deeppink !important;
+}
+
+.ce-input:focus{
+  background-color: deeppink !important;
+}
+
+
+.ce-settings-container{
+  background-color: #282c34 !important;
+}
+
+
+
+#ce-ice-breaker-gif{
+  display: none;
+}
+
+
+
+.ce-chat-title-text {
+  color: yellow !important;
+}
+
+
+
+
+
+.ce-message-bubble.ce-other-message-bubble{
+  background-color: deeppink !important;
+  color: deeppink;
+}
+
+.ce-message-bubble.ce-my-message-bubble{
+  background-color: #27CC58 !important;
+}
+
+
+.ce-message-bubble.ce-other-message-bubble .ce-message-bubble-text {
+  color: black !important;
+}
+
+
+
 .chats-page {
   position: absolute;
   top: 0px;
@@ -19,8 +97,9 @@
 .nav-bar {
   width: 100%;
   height: 66px;
-  background-color: #002766;
+  background-color: #27CC58;
 }
+
 
 .logo-tab {
   position: absolute;
@@ -76,8 +155,8 @@
 }
 
 .google {
-  background-color: #4285f4;
-  color: white;
+  background-color: #00FF00;
+  color: black;
 }
 
 #loading-container {
