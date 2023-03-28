@@ -26,7 +26,10 @@ const themeDark = createTheme({
             default: "#222222"
         },
         text: {
-            primary: "#ffffff"
+            primary: "#27CC58"
+        },
+        secondary: {
+            main: "#27CC58"
         }
     }
 });
@@ -38,6 +41,7 @@ function ResetPassword(){
     const [email, setEmail] = useState('');
     const [showAlert, setShowAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
+    const [showBadRegexEmailAlert, setShowBadRegexEmailAlert] = useState(false);
     const history = useHistory();
 
 
@@ -51,6 +55,12 @@ function ResetPassword(){
             }, 4000);
         }
 
+        const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+
+        if (!emailRegex.test(email)) {
+            setShowBadRegexEmailAlert(true);
+        }
+
         event.preventDefault();
         firebase.auth().sendPasswordResetEmail(email)
             .then(() => {
@@ -59,6 +69,9 @@ function ResetPassword(){
             })
             .catch((error) => {
                 // Handle error
+                if (error.code === 'auth/user-not-found') {
+                    setShowErrorAlert(true);
+                }
             });
 
     };
@@ -68,7 +81,7 @@ function ResetPassword(){
                 const timer = setTimeout(() => {
                     setShowAlert(false);
                     history.push('/login');
-                }, 7000);
+                }, 6000);
 
                 // Clean up the timer when the component is unmounted or showAlert changes
                 return () => clearTimeout(timer);
@@ -77,14 +90,6 @@ function ResetPassword(){
 
 
     return (
-    //     <form onSubmit={handleResetPassword}>
-    //         <label>
-    //             Email:
-    //             <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
-    //         </label>
-    //         <button type="submit">Reset Password</button>
-    //     </form>
-    // );
 
         <ThemeProvider theme={themeDark}>
 
@@ -97,6 +102,16 @@ function ResetPassword(){
             <Snackbar open={showErrorAlert} autoHideDuration={5000} onClose={() => setShowErrorAlert(false)}>
                 <Alert onClose={() => setShowErrorAlert(false)} severity="error" sx={{ width: '100%' }}>
                     Please enter your email address.
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showBadRegexEmailAlert} autoHideDuration={5000} onClose={() => setShowBadRegexEmailAlert(false)}>
+                <Alert onClose={() => setShowBadRegexEmailAlert(false)} severity="error" sx={{ width: '100%' }}>
+                    Please enter a valid email address.
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showErrorAlert} autoHideDuration={5000} onClose={() => setShowErrorAlert(false)}>
+                <Alert onClose={() => setShowErrorAlert(false)} severity="error" sx={{ width: '100%' }}>
+                    Account not found. Please try again.
                 </Alert>
             </Snackbar>
             <Container component="main" maxWidth="xs">
@@ -126,11 +141,18 @@ function ResetPassword(){
                             margin={"normal"}
                             value={email} onChange={(event) => setEmail(event.target.value)}
                         />
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Reset Password</Button>
+                        <Button
+                            type="submit" fullWidth
+                            variant="contained"
+                            color={"secondary"}
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Reset Password
+                        </Button>
 
                         <Grid container justifyContent={'center'}>
                             <Grid item>
-                                <Link href="/" variant="body2" >
+                                <Link href="/" variant="body2" color={"secondary"}>
                                     {"Home"}
                                 </Link>
                             </Grid>

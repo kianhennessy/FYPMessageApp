@@ -29,7 +29,10 @@ const themeDark = createTheme({
             default: "#222222"
         },
         text: {
-            primary: "#ffffff"
+            primary: "#27CC58"
+        },
+        secondary: {
+            main: "#27CC58"
         }
     }
 });
@@ -52,6 +55,8 @@ export default function EnrollMfa() {
     const [showLoginError, setShowLoginError] = useState(false);
     const [showPhoneError, setShowPhoneError] = useState(false);
     const [showCaptchError, setShowCaptchError] = useState(false);
+
+    const [showIrishPhoneError, setShowIrishPhoneError] = useState(false);
 
     useEffect(() => {
         // Setup a global captcha
@@ -140,6 +145,10 @@ export default function EnrollMfa() {
 
 
         const phoneNumber = document.getElementById('enroll-phone').value;
+
+        if (!phoneNumber.startsWith('+353')) {
+            setShowIrishPhoneError(true);
+        }
 
         event.preventDefault();
         //setShowError(null)
@@ -247,6 +256,12 @@ export default function EnrollMfa() {
                     Page reloading due to reCAPTCHA error, please try again
                 </Alert>
             </Snackbar>
+
+            <Snackbar open={showIrishPhoneError} autoHideDuration={5000} onClose={() => setShowIrishPhoneError(false)}>
+                <Alert onClose={() => setShowIrishPhoneError(false)} severity="error" sx={{ width: '100%' }}>
+                    Please enter an Irish phone number starting with +353
+                </Alert>
+            </Snackbar>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -282,11 +297,11 @@ export default function EnrollMfa() {
                             margin={"normal"}
                         />
                         <div id='enroll-button'></div>
-                        <Button id='enroll-button' fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={Enroll}>Send Code</Button>
+                        <Button id='enroll-button' fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={Enroll} color={'secondary'}>Send Code</Button>
 
                         <Grid container justifyContent={'center'}>
                             <Grid item>
-                                <Link href="/" variant="body2" onClick={handleLogout}>
+                                <Link href="/" variant="body2" onClick={handleLogout} color={'secondary'}>
                                     {"Home"}
                                 </Link>
                             </Grid>

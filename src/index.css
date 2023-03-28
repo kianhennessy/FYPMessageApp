@@ -232,6 +232,11 @@
   border-top: 2px solid #525969 !important;;
 }
 
+.ce-autocomplete-option{
+  background-color: #282c34 !important;
+  color: #27CC58 !important;
+}
+
 
 
 
@@ -263,7 +268,10 @@
   position: absolute;
   top: 22px;
   right: 22px;
-  color: #282c34;
+  background-color: #282c34;
+  color: #27CC58;
+  padding: 5px;
+  border-radius: 22px;
   cursor: pointer;
 }
 
@@ -304,7 +312,7 @@
 }
 
 .google {
-  background-color: #00FF00;
+  background-color: #27CC58;
   color: black;
 }
 

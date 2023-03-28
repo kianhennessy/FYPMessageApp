@@ -25,7 +25,10 @@ const themeDark = createTheme({
             default: "#222222"
         },
         text: {
-            primary: "#ffffff"
+            primary: "#27CC58"
+        },
+        secondary: {
+            main: "#27CC58"
         }
     }
 });
@@ -185,10 +188,17 @@ function SignUp() {
                             margin={"normal"}
                             value={password} onChange={(e) => setPassword(e.target.value)} />
 
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Sign up</Button>
+                        <Button
+                            type="submit"
+                            fullWidth variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                            color={"secondary"}
+                        >
+                            Sign up
+                        </Button>
                         <Grid container justifyContent={'center'}>
                             <Grid item>
-                                <Link href="/" variant="body2" >
+                                <Link href="/" variant="body2" color={"secondary"}>
                                     {"Already have an account? Log in"}
                                 </Link>
                             </Grid>

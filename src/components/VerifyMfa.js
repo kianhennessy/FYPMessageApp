@@ -28,7 +28,10 @@ const themeDark = createTheme({
             default: "#222222"
         },
         text: {
-            primary: "#ffffff"
+            primary: "#27CC58"
+        },
+        secondary: {
+            main: "#27CC58"
         }
     }
 });
@@ -47,6 +50,8 @@ function VerifyMfa() {
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     const [showError, setShowError] = useState(false);
+
+    const [showWrongCode, setShowWrongCode] = useState(false);
 
     const VerifyMfaCode = async (event) => {
 
@@ -72,6 +77,9 @@ function VerifyMfa() {
             console.error(error);
             if(error.code === 'auth/invalid-verification-code' || error.code === 'auth/missing-code') {
                 setShowError(true);
+            }
+            if(error.code === "auth/invalid-verification-code") {
+                setShowWrongCode(true);
             }
         }
 
@@ -130,6 +138,11 @@ function VerifyMfa() {
                     invalid MFA code
                 </Alert>
             </Snackbar>
+            <Snackbar open={showWrongCode} autoHideDuration={5000} onClose={() => setShowWrongCode(false)}>
+                <Alert onClose={() => setShowWrongCode(false)} severity="error" sx={{ width: '100%' }}>
+                    Incorrect code, please try again
+                </Alert>
+            </Snackbar>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -160,11 +173,11 @@ function VerifyMfa() {
                             required
                             margin="normal"
                         />
-                        <Button id='submit-code' onClick={VerifyMfaCode} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}> submit mfa code</Button>
+                        <Button id='submit-code' onClick={VerifyMfaCode} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} color={"secondary"}> submit mfa code</Button>
 
                         <Grid container justifyContent={'center'}>
                             <Grid item>
-                                <Link href="/" variant="body2" onClick={handleLogout}>
+                                <Link href="/" variant="body2" onClick={handleLogout} color={"secondary"}>
                                     {"Home"}
                                 </Link>
                             </Grid>

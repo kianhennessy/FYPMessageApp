@@ -75,6 +75,7 @@ export default function Chats() {
                 <div onClick={handleLogout} className='logout-tab'>
                     Logout
                 </div>
+
             </div>
 
             <ChatEngine
@@ -96,7 +97,7 @@ export default function Chats() {
                         userSecret: user.uid}
                     messages.map((message) => {
                         // If message is more than 1 minute, delete it
-                        const timeToGo = Math.max(0,6000000 - (new Date() - new Date(message.created)))
+                        const timeToGo = Math.max(0,60000 - (new Date() - new Date(message.created)))
                         if(!message.deleting && message.id && (message.sender.username === user.email)) {
                             message.deleting = true
                             setTimeout(() => {

@@ -44,18 +44,20 @@ const themeDark = createTheme({
             default: "#222222"
         },
         text: {
-            primary: "#00FF00"
+            primary: "#27CC58"
         },
         secondary: {
-            main: "#00FF00"
+            main: "#27CC58"
         },
     }
 });
 
 
 export default function Login() {
+
     const [verificationId, setVerificationId] = useState(null);
     const [code, setCode] = useState("");
+
     //const [alert, setAlert] = useState(null);
     const history = useHistory();
 
@@ -67,6 +69,8 @@ export default function Login() {
         try {
             await auth.signInWithEmailAndPassword(email, password);
             // User successfully logged in
+
+            console.log("User successfully logged in");
         } catch (error) {
             // Handle login error
         }
@@ -106,8 +110,8 @@ export default function Login() {
             await phoneAuthProvider.verifyPhoneNumber(phoneOpts, window.recaptchaVerifier)
         );
 
-        // alert("sms text sent!");
-        // setAlert({severity:"info", message: "SMS Sent Successfully"});
+        setShowCodeSentAlert(true);
+        handleClickOpen();
 
     };
 
@@ -123,16 +127,36 @@ export default function Login() {
     };
 
 
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
+    const [showPasswordAlert, setShowPasswordAlert] = useState(false);
+    const [showAccountAlert, setShowAccountAlert] = useState(false);
+
+    const [showCodeSentAlert, setShowCodeSentAlert] = useState(false);
+
     const loginWithEmailandPassword = async () => {
 
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
 
+        const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+
+        if (!emailRegex.test(email)) {
+            setShowErrorAlert(true);
+        }
+
+        if(password.length < 6 || password === "") {
+            setShowPasswordAlert(true);
+        }
+
         try {
             await auth.signInWithEmailAndPassword(email, password);
+
         } catch (error) {
             if (error.code === "auth/multi-factor-auth-required") {
                 window.resolver = error.resolver;
+            }
+            if (error.code === 'auth/user-not-found') {
+                setShowAccountAlert(true);
             }
         }
 
@@ -147,55 +171,80 @@ export default function Login() {
             await phoneAuthProvider.verifyPhoneNumber(phoneOpts, window.recaptchaVerifier)
         );
         // alert("sms text sent!");
-    };
-
-
-
-    const handleLoginButtonClick = () => {
-        //call loginWithEmailandPassword
-        loginWithEmailandPassword();
-
-
-        // Call the function to open the MUI dialog
+        setShowCodeSentAlert(true);
         handleClickOpen();
     };
-
-    const handleGoogleLoginButtonClick = () => {
-        //call loginWithGoogle
-        loginWithGoogle();
-
-        // Call the function to open the MUI dialog
-        handleClickOpen();
-    }
-
 
 
     const handleCodeChange = (event) => {
         setCode(event.target.value);
     };
 
+    const [showInvalidCode, setShowInvalidCode] = useState(false);
+    const [showWrongCode, setShowWrongCode] = useState(false);
+
     const handleVerifyCode = async () => {
 
-        const cred = firebase.auth.PhoneAuthProvider.credential(
-            verificationId,
-            code
-        );
+        try{
+            const cred = firebase.auth.PhoneAuthProvider.credential(
+                verificationId,
+                code
+            );
 
-        const multiFactorAssertion = firebase.auth.PhoneMultiFactorGenerator.assertion(
-            cred
-        );
+            const multiFactorAssertion = firebase.auth.PhoneMultiFactorGenerator.assertion(
+                cred
+            );
 
-        const credential = await window.resolver.resolveSignIn(multiFactorAssertion);
+            const credential = await window.resolver.resolveSignIn(multiFactorAssertion);
 
-        console.log(credential);
+            console.log(credential);
+        } catch (error) {
+            console.log(error);
+            if (error.code === "auth/missing-code") {
+                setShowInvalidCode(true);
+            }
 
-        // setAlert({severity:"success", message: "logged in successfully"});
+            if(error.code === "auth/invalid-verification-code") {
+                setShowWrongCode(true);
+            }
+        }
+
     };
 
 
     return (
 
         <ThemeProvider theme={themeDark}>
+            <Snackbar open={showErrorAlert} autoHideDuration={5000} onClose={() => setShowErrorAlert(false)} >
+                <Alert onClose={() => setShowErrorAlert(false)} severity="error" sx={{ width: '100%' }}>
+                    Please enter a valid email address
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showPasswordAlert} autoHideDuration={5000} onClose={() => setShowPasswordAlert(false)} >
+                <Alert onClose={() => setShowPasswordAlert(false)} severity="error" sx={{ width: '100%' }}>
+                    Please enter a valid password
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showAccountAlert} autoHideDuration={5000} onClose={() => setShowAccountAlert(false)} >
+                <Alert onClose={() => setShowAccountAlert(false)} severity="error" sx={{ width: '100%' }}>
+                    Account does not exist
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showInvalidCode} autoHideDuration={5000} onClose={() => setShowInvalidCode(false)} >
+                <Alert onClose={() => setShowInvalidCode(false)} severity="error" sx={{ width: '100%' }}>
+                    Please enter a valid code
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showWrongCode} autoHideDuration={5000} onClose={() => setShowWrongCode(false)} >
+                <Alert onClose={() => setShowWrongCode(false)} severity="error" sx={{ width: '100%' }}>
+                    Incorrect code
+                </Alert>
+            </Snackbar>
+            <Snackbar open={showCodeSentAlert} autoHideDuration={5000} onClose={() => setShowCodeSentAlert(false)} >
+                <Alert onClose={() => setShowCodeSentAlert(false)} severity="info" sx={{ width: '100%' }}>
+                    Code sent!
+                </Alert>
+            </Snackbar>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -236,8 +285,7 @@ export default function Login() {
                                 variant="contained"
                                 color={"secondary"}
                                 sx={{ mt: 3, mb: 2 }}
-                                onClick={handleLoginButtonClick}
-
+                                onClick={loginWithEmailandPassword}
                             >
                                 Log in
                             </Button>
@@ -279,7 +327,7 @@ export default function Login() {
 
                         <Grid container justifyContent={'center'}>
                             <Grid item padding={2}>
-                                <div className="login-button google" onClick={handleGoogleLoginButtonClick}>
+                                <div className="login-button google" onClick={loginWithGoogle}>
 
                                     <GoogleOutlined/> Sign In with Google
                                 </div>
