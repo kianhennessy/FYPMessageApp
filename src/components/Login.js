@@ -89,7 +89,6 @@ export default function Login() {
     const loginWithGoogle = async () => {
         try {
             await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-            history.push("/");
         } catch (error) {
             if (error.code === "auth/multi-factor-auth-required") {
                 window.resolver = error.resolver;
@@ -161,6 +160,14 @@ export default function Login() {
         handleClickOpen();
     };
 
+    const handleGoogleLoginButtonClick = () => {
+        //call loginWithGoogle
+        loginWithGoogle();
+
+        // Call the function to open the MUI dialog
+        handleClickOpen();
+    }
+
 
 
     const handleCodeChange = (event) => {
@@ -212,7 +219,6 @@ export default function Login() {
                             required
                             fullWidth
                             margin={"normal"}
-
                             id={'login-email'}{...register('email', { required: true })}
                         />
                         <TextField
@@ -273,7 +279,7 @@ export default function Login() {
 
                         <Grid container justifyContent={'center'}>
                             <Grid item padding={2}>
-                                <div className="login-button google" onClick={loginWithGoogle}>
+                                <div className="login-button google" onClick={handleGoogleLoginButtonClick}>
 
                                     <GoogleOutlined/> Sign In with Google
                                 </div>
