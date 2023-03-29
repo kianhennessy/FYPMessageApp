@@ -35,6 +35,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {styled} from "@mui/material";
 
+import { Helmet } from 'react-helmet';
+
 
 
 
@@ -215,6 +217,12 @@ export default function Login() {
     return (
 
         <ThemeProvider theme={themeDark}>
+            <div>
+                <Helmet>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+                    </meta>
+                </Helmet>
+            </div>
             <Snackbar open={showErrorAlert} autoHideDuration={5000} onClose={() => setShowErrorAlert(false)} >
                 <Alert onClose={() => setShowErrorAlert(false)} severity="error" sx={{ width: '100%' }}>
                     Please enter a valid email address
