@@ -82,7 +82,7 @@ export default function Chats() {
             </div>
 
             <ChatEngine
-                height="calc(100vh - 66px)"
+                height="calc(102vh - 80px)"
                 projectID="8afaea8d-1514-4b90-bc09-a5f244987db7"
                 userName={user.email}
                 userSecret={user.uid}

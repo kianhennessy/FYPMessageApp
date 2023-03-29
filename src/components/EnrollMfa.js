@@ -226,6 +226,7 @@ export default function EnrollMfa() {
         // </div>
 
         <ThemeProvider theme={themeDark}>
+
             <Snackbar open={showSuccessAlert}>
                 <Alert onClose={() => setShowSuccessAlert(false)} severity="info" sx={{ width: '100%' }}>
                     sms text sent!
