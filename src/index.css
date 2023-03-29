@@ -5,15 +5,17 @@
   padding: 0;
   border: none;
   box-sizing: border-box;
-
 }
 
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
 
-
-
-/*:root {*/
-/*  touch-action: pan-x pan-y;*/
-/*}*/
+:root {
+  touch-action: pan-x pan-y;
+}
 
 /*html, body {*/
 /*  margin: 0;*/
@@ -27,6 +29,145 @@
   Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
   Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 }
+
+/*#root {*/
+/*  height: 100vh !important;*/
+/*}*/
+
+/*.chats-page {*/
+/*  height: 100vh !important;*/
+/*}*/
+
+/*.ce-chat-engine {*/
+/*  height: 100vh !important;*/
+/*}*/
+
+/*.ce-wrapper {*/
+/*  height: 100vh !important;*/
+/*}*/
+
+/*.ce-chat-list-column {*/
+/*  height: 100vh !important;*/
+/*}*/
+
+/*.ce-chat-feed-column {*/
+/*  height: 100vh !important;*/
+/*}*/
+
+/*.ce-chat-feed{*/
+/*    height: 100vh !important;*/
+/*}*/
+
+/*.ce-settings-column {*/
+/*  height: 100vh !important;*/
+/*}*/
+
+/*#ce-chat-feed-container .ce-chat-feed-container{*/
+/*  height: 100vh !important;*/
+/*}*/
+
+
+/*.ce-chat-list-column{*/
+/*    height: 100vh !important;*/
+/*}*/
+
+/*.ce-chat-list{*/
+/*    height: 100vh !important;*/
+/*}*/
+
+
+
+/*.chats-page {*/
+/*  position: absolute;*/
+/*  top: 0px;*/
+/*  left: 0px;*/
+/*  width: 100vw;*/
+/*  height: 100%;*/
+/*}*/
+
+/*.chat-feed{*/
+/*  height: 300% !important;*/
+/*}*/
+
+/*.chats-page {*/
+/*  height : 100vh !important;*/
+
+/*}*/
+
+/*.ce-chat-engine{*/
+/*    height: 500px !important;*/
+/*}*/
+
+/*@media only screen and (max-width: 600px) {*/
+/*  .ce-chat-engine {*/
+/*    height: 300px !important;*/
+/*  }*/
+/*}*/
+
+/*#ce-feed-container{*/
+/*  height: 90vh !important;*/
+/*}*/
+
+.nav-bar {
+  width: 100%;
+  height: 66px;
+  background-color: #27CC58;
+}
+
+
+.logo-tab {
+  position: absolute;
+  left: 22px;
+  top: 12px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #282c34;
+}
+
+.logout-tab {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  background-color: #282c34;
+  color: #27CC58;
+  padding: 5px;
+  border-radius: 22px;
+  cursor: pointer;
+}
+
+/*@media only screen and (max-width: 600px) {*/
+/*  .nav-bar {*/
+/*    height: 50px;*/
+/*  }*/
+
+/*  .logo-tab {*/
+/*    top: 8px;*/
+/*    font-size: 24px;*/
+/*  }*/
+
+/*  .logout-tab {*/
+/*    top: 12px;*/
+/*    right: 12px;*/
+/*    padding: 3px;*/
+/*    border-radius: 16px;*/
+/*  }*/
+/*}*/
+
+/*::-webkit-scrollbar {*/
+/*  width: 0; !* Remove scrollbar space *!*/
+/*  background: transparent; !* Optional: just make scrollbar invisible *!*/
+/*}*/
+
+
+/* chat page mobile */
+
+
+
+/*.ce-chat-settings-mobile-option div{*/
+/*    background-color: #282c34 !important;*/
+/*    color: #27CC58 !important;*/
+/*}*/
+
 
 /* Chats Page */
 
@@ -191,16 +332,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 .ce-message-bubble.ce-my-message-bubble{
   background-color: #27CC58 !important;
   color: #282c34 !important;
@@ -258,104 +389,6 @@
 }
 
 
-
-
-/*.chats-page {*/
-/*  position: absolute;*/
-/*  top: 0px;*/
-/*  left: 0px;*/
-/*  width: 100vw;*/
-/*  height: 100%;*/
-/*}*/
-
-/*.chat-feed{*/
-/*  height: 300% !important;*/
-/*}*/
-
-/*.chats-page {*/
-/*  height : 100vh !important;*/
-
-/*}*/
-
-/*.ce-chat-engine{*/
-/*    height: 500px !important;*/
-/*}*/
-
-/*@media only screen and (max-width: 600px) {*/
-/*  .ce-chat-engine {*/
-/*    height: 300px !important;*/
-/*  }*/
-/*}*/
-
-#ce-feed-container{
-    height: 90vh !important;
-}
-
-.nav-bar {
-  width: 100%;
-  height: 66px;
-  background-color: #27CC58;
-}
-
-
-.logo-tab {
-  position: absolute;
-  left: 22px;
-  top: 12px;
-  font-size: 32px;
-  font-weight: 700;
-  color: #282c34;
-}
-
-.logout-tab {
-  position: absolute;
-  top: 22px;
-  right: 22px;
-  background-color: #282c34;
-  color: #27CC58;
-  padding: 5px;
-  border-radius: 22px;
-  cursor: pointer;
-}
-
-@media only screen and (max-width: 600px) {
-  .nav-bar {
-    height: 50px;
-  }
-
-  .logo-tab {
-    top: 8px;
-    font-size: 24px;
-  }
-
-  .logout-tab {
-    top: 12px;
-    right: 12px;
-    padding: 3px;
-    border-radius: 16px;
-  }
-}
-
-::-webkit-scrollbar {
-  width: 0; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
-
-}
-
-
-/* chat page mobile */
-
-
-
-/*.ce-chat-settings-mobile-option div{*/
-/*    background-color: #282c34 !important;*/
-/*    color: #27CC58 !important;*/
-/*}*/
-
-
-.ce-chat-settings-mobile-option span{
-
-}
 
 /*span[aria-label="close"] div{*/
 /*  color: #27CC58 !important;*/
@@ -416,65 +449,64 @@ span[aria-label="close"] span div div{
 
 
 
-/* chat size on mobile */
 
 
 
 
 /* Login Page */
 
-/*#login-page {*/
-/*  background-color: #282c34;*/
-/*  position: absolute;*/
-/*  top: 0px;*/
-/*  bottom: 0px;*/
-/*  left: 0px;*/
-/*  right: 0px;*/
-/*}*/
+#login-page {
+  background-color: #282c34;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
 
-/*#login-card {*/
-/*  position: relative;*/
-/*  top: calc(50vh - 144px);*/
-/*  left: calc(50vw - 210px);*/
-/*  padding-top: 36px;*/
-/*  padding-bottom: 66px;*/
-/*  width: 420px;*/
-/*  text-align: center;*/
-/*  background-color: white;*/
-/*  border-radius: 22px;*/
-/*}*/
+#login-card {
+  position: relative;
+  top: calc(50vh - 144px);
+  left: calc(50vw - 210px);
+  padding-top: 36px;
+  padding-bottom: 66px;
+  width: 420px;
+  text-align: center;
+  background-color: white;
+  border-radius: 22px;
+}
 
-/*.login-button {*/
-/*  cursor: pointer;*/
-/*  color: white;*/
-/*  padding: 12px;*/
-/*  border-radius: 8px;*/
-/*  display: inline-block;*/
-/*}*/
+.login-button {
+  cursor: pointer;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  display: inline-block;
+}
 
-/*.google {*/
-/*  background-color: #27CC58;*/
-/*  color: black;*/
-/*}*/
+.google {
+  background-color: #27CC58;
+  color: black;
+}
 
-/*#loading-container {*/
-/*  position: absolute;*/
-/*  top: 0px;*/
-/*  bottom: 0px;*/
-/*  left: 0px;*/
-/*  right: 0px;*/
-/*  background-color: rgb(255, 255, 255, 0.22);*/
-/*}*/
+#loading-container {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgb(255, 255, 255, 0.22);
+}
 
-/*#loading-icon {*/
-/*  font-size: 66px;*/
-/*  position: relative;*/
-/*  left: calc(50vw - 33px);*/
-/*  top: calc(50vh - 22px);*/
-/*}*/
+#loading-icon {
+  font-size: 66px;
+  position: relative;
+  left: calc(50vw - 33px);
+  top: calc(50vh - 22px);
+}
 
-/*#center-div {*/
-/*  width: 50%;*/
-/*  margin-left: auto;*/
-/*  margin-right: auto;*/
-/*}*/
+#center-div {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}

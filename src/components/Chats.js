@@ -79,7 +79,6 @@ export default function Chats() {
                 <div onClick={handleLogout} className='logout-tab'>
                     Logout
                 </div>
-
                 </div>
 
             <ChatEngine
