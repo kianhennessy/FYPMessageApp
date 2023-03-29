@@ -66,23 +66,23 @@ export default function Chats() {
     if (!user || loading) return <div />
 
     return (
-
         <div className='chats-page'>
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
             </meta>
-            <div className='test'>
-                <div className='nav-bar'>
-                <div className='logo-tab'>
-                    Message
-                </div>
+                <div id="fit">
+                    <div className='nav-bar'>
+                    <div className='logo-tab'>
+                        Message
+                    </div>
 
-                <div onClick={handleLogout} className='logout-tab'>
-                    Logout
-                </div>
+                    <div onClick={handleLogout} className='logout-tab'>
+                        Logout
+                    </div>
+                    </div>
                 </div>
 
             <ChatEngine
-                height="calc(100vh - 66px)"
+                height="93vh"
                 projectID="8afaea8d-1514-4b90-bc09-a5f244987db7"
                 userName={user.email}
                 userSecret={user.uid}
@@ -119,6 +119,5 @@ export default function Chats() {
                 }}
             />
             </div>
-        </div>
     )
 }
