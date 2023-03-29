@@ -1,4 +1,8 @@
 /* Global */
+:root {
+  touch-action: pan-x pan-y;
+  height: 100%
+}
 
 
 
@@ -278,7 +282,85 @@
 ::-webkit-scrollbar {
   width: 0; /* Remove scrollbar space */
   background: transparent; /* Optional: just make scrollbar invisible */
+
 }
+
+
+/* chat page mobile */
+
+
+
+/*.ce-chat-settings-mobile-option div{*/
+/*    background-color: #282c34 !important;*/
+/*    color: #27CC58 !important;*/
+/*}*/
+
+
+.ce-chat-settings-mobile-option span{
+
+}
+
+/*span[aria-label="close"] div{*/
+/*  color: #27CC58 !important;*/
+/*  padding: 100px;*/
+/*  background-color: #282c34 !important;*/
+/*}*/
+
+span[aria-label="close"] div div{
+    color: red !important;
+    padding: 10000px;
+  }
+
+span[aria-label="setting"] span div div{
+  color: red !important;
+  padding: 100px;
+  background-color: red !important;
+}
+
+span[aria-label="close"] span div div{
+  color: red !important;
+  padding: 100px;
+  background-color: red !important;
+}
+
+:not(.ce-chat-settings-mobile-option) span[aria-label="close"] div div{
+  color: red !important;
+  padding: 100px;
+  background-color: red !important;
+}
+
+
+
+/*.ce-chat-settings-mobile-option div{*/
+/*  background-color: #282c34 !important;*/
+/*  color: #27CC58 !important;*/
+/*}*/
+
+.ce-avatar-text{
+  color: white !important;
+
+}
+
+/*.ce-chat-avatars-row div{*/
+/*  background-color: transparent !important;*/
+/*  color: red !important;*/
+/*}*/
+
+/*.ce-avatar{*/
+/*  background-color: transparent !important;*/
+/*  color: transparent !important;*/
+/*}*/
+
+.ce-chat-title svg{
+  fill: #27CC58 !important;
+}
+
+
+
+/* chat size on mobile */
+
+
+
 
 /* Login Page */
 
