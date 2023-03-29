@@ -7,14 +7,26 @@
   box-sizing: border-box;
 }
 
-html, body {
+/*html, body {*/
+/*  height: 100%;*/
+/*  width: 100%;*/
+/*  */
+/*}*/
 
-  overflow: hidden;
+@media only screen and (max-width: 600px) {
+  .ce-chat-feed {
+    height: 93vh !important;
+    overflow: hidden !important
+  }
+  html, body {
+    height: 100%;
+    width: 100%;
+  }
 }
 
-:root {
-  touch-action: pan-x pan-y;
-}
+  /*:root {*/
+/*  touch-action: pan-x pan-y;*/
+/*}*/
 
 
 /*html, body {*/
@@ -55,7 +67,8 @@ html, body {
 /*}*/
 
 /*.ce-chat-feed{*/
-/*    height: 100vh !important;*/
+/*    height: 93vh !important;*/
+/*    overflow: hidden !important;*/
 /*}*/
 
 /*.ce-settings-column {*/
@@ -121,7 +134,7 @@ html, body {
 .logo-tab {
   position: absolute;
   left: 22px;
-  top: 12px;
+  top: 1%;
   font-size: 32px;
   font-weight: 700;
   color: #282c34;
@@ -129,7 +142,7 @@ html, body {
 
 .logout-tab {
   position: absolute;
-  top: 22px;
+  top: 2%;
   right: 22px;
   background-color: #282c34;
   color: #27CC58;
@@ -156,10 +169,10 @@ html, body {
 /*  }*/
 /*}*/
 
-::-webkit-scrollbar {
-  width: 0; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
-}
+/*::-webkit-scrollbar {*/
+/*  width: 0; !* Remove scrollbar space *!*/
+/*  background: transparent; !* Optional: just make scrollbar invisible *!*/
+/*}*/
 
 
 /* chat page mobile */
