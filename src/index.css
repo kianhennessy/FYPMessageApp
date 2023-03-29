@@ -8,8 +8,7 @@
 }
 
 html, body {
-  height: 100%;
-  width: 100%;
+
   overflow: hidden;
 }
 
@@ -157,10 +156,10 @@ html, body {
 /*  }*/
 /*}*/
 
-/*::-webkit-scrollbar {*/
-/*  width: 0; !* Remove scrollbar space *!*/
-/*  background: transparent; !* Optional: just make scrollbar invisible *!*/
-/*}*/
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
 
 
 /* chat page mobile */
