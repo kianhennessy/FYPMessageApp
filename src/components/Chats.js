@@ -8,6 +8,8 @@ import {ChatEngine, deleteMessage} from 'react-chat-engine'
 import { useAuth } from "../contexts/AuthContext"
 
 import { auth } from "../firebase"
+import {Html} from "@mui/icons-material";
+
 
 
 export default function Chats() {
@@ -19,6 +21,17 @@ export default function Chats() {
     async function handleLogout() {
         await auth.signOut()
         history.push("/")
+    }
+
+    const renderChatLogout = (chat) => {
+        return (
+            <div>
+                <div onClick={handleLogout} className="logout-tab">
+                    logout
+                </div>
+
+            </div>
+        )
     }
 
     useEffect(() => {
@@ -67,9 +80,7 @@ export default function Chats() {
 
     return (
         <div className='chats-page'>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-            </meta>
-
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"></meta>
                     <div className='nav-bar'>
                     <div className='logo-tab'>
                         Message
@@ -81,7 +92,8 @@ export default function Chats() {
                     </div>
 
             <ChatEngine
-                // height="93vh"
+                // renderChatHeader={renderChatLogout}
+                height="93vh"
                 projectID="8afaea8d-1514-4b90-bc09-a5f244987db7"
                 userName={user.email}
                 userSecret={user.uid}
@@ -117,6 +129,6 @@ export default function Chats() {
                     })
                 }}
             />
-            </div>
+        </div>
     )
 }

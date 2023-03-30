@@ -7,6 +7,24 @@
   box-sizing: border-box;
 }
 
+:root {
+  touch-action: pan-x pan-y;
+}
+
+/*@media only screen and (max-width: 932px) {*/
+/*  .ce-chat-engine{*/
+/*    height: calc(120vh - 70vh) !important;*/
+/*  }*/
+/*}*/
+
+/*.ce-chats-container{*/
+/*  height: 93vh !important;*/
+/*  overflow: auto;*/
+/*  overflow-x: hidden;*/
+/*  overflow-y: auto;*/
+/*  -webkit-overflow-scrolling: touch;*/
+/*}*/
+
 /*html, body {*/
 /*  height: 100%;*/
 /*  width: 100%;*/
@@ -22,28 +40,7 @@
 
 /*}*/
 
-#ce-feed-container {
-  height: calc(100vh - 7vh) !important;
-}
-.ce-chat-feed-container {
-  height: calc(100vh - 7vh) !important;
-}
 
-@media only screen and (max-width: 600px) {
-  /*.ce-chat-feed {*/
-  /*  height: calc(100vh - 7vh) !important;*/
-  /*  margin-: 200px !important;*/
-  /*}*/
-  #ce-feed-container {
-    height: calc(100vh - 7vh) !important;
-    overflow: hidden !important;
-  }
-  html, body {
-    height: 100%;
-    width: 100%;
-
-  }
-}
 
 /*@media only screen and (max-width: 600px) {*/
 /*  .ce-chat-feed {*/
@@ -56,9 +53,7 @@
 /*  }*/
 /*}*/
 
-  :root {
-  touch-action: pan-x pan-y;
-}
+
 
 
 /*html, body {*/
@@ -161,8 +156,8 @@
 
 
 .nav-bar {
-  width: 100%;
-  height: 7vh;
+  width: 100vw;
+  height: 66px;
   background-color: #27CC58;
 }
 
@@ -233,7 +228,7 @@
 
 .ce-chat-title {
   background-color: #282c34 !important;
-  /*border-bottom: 1px solid #27CC58 !important;*/
+
 }
 
 #ce-feed-container{
@@ -278,7 +273,7 @@
 .ce-chat-card{
   background-color: #525969 !important;
   border-radius: 12px;
-  margin-top: 5px;
+  margin-top: 6%;
 }
 
 .ce-chat-unread-dot{
@@ -315,8 +310,29 @@
 .ce-settings {
   background-color: #282c34 !important;
   border-left: 3px solid #525969 !important;
+}
+
+@media only screen and (max-width: 575px){
+    .ce-settings {
+        border-left: 0px solid #525969 !important;
+    }
 
 }
+
+@media only screen and (max-width: 736px){
+  .ce-chat-form-container{
+    background-color: #282c34 !important;
+    margin-bottom: 5% !important;
+  }
+
+}
+
+/*@media only screen and (orientation: landscape) {*/
+/* .nav-bar{*/
+/*   padding-bottom: 6%;*/
+
+/* }*/
+/*}*/
 
 .ce-input{
   background-color: #525969 !important;
