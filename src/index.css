@@ -10,23 +10,55 @@
 /*html, body {*/
 /*  height: 100%;*/
 /*  width: 100%;*/
-/*  */
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  min-height: 100vh;*/
+/*  overflow: hidden;*/
 /*}*/
 
+/*.chats-page{*/
+/*  flex: 1;*/
+/*  padding-bottom: 60px*/
+
+/*}*/
+
+#ce-feed-container {
+  height: calc(100vh - 7vh) !important;
+}
+.ce-chat-feed-container {
+  height: calc(100vh - 7vh) !important;
+}
+
 @media only screen and (max-width: 600px) {
-  .ce-chat-feed {
-    height: 93vh !important;
-    overflow: hidden !important
+  /*.ce-chat-feed {*/
+  /*  height: calc(100vh - 7vh) !important;*/
+  /*  margin-: 200px !important;*/
+  /*}*/
+  #ce-feed-container {
+    height: calc(100vh - 7vh) !important;
+    overflow: hidden !important;
   }
   html, body {
     height: 100%;
     width: 100%;
+
   }
 }
 
-  /*:root {*/
-/*  touch-action: pan-x pan-y;*/
+/*@media only screen and (max-width: 600px) {*/
+/*  .ce-chat-feed {*/
+/*    height: 93vh !important;*/
+/*    overflow: hidden !important*/
+/*  }*/
+/*  html, body {*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*  }*/
 /*}*/
+
+  :root {
+  touch-action: pan-x pan-y;
+}
 
 
 /*html, body {*/
@@ -48,6 +80,11 @@
 
 /*.chats-page {*/
 /*  height: 100vh !important;*/
+
+/*}*/
+
+/*#root {*/
+/* height: 100vh !important;*/
 /*}*/
 
 /*.ce-chat-engine {*/
@@ -55,7 +92,7 @@
 /*}*/
 
 /*.ce-wrapper {*/
-/*  height: 100vh !important;*/
+/*  height: 93vh !important;*/
 /*}*/
 
 /*.ce-chat-list-column {*/
@@ -67,8 +104,7 @@
 /*}*/
 
 /*.ce-chat-feed{*/
-/*    height: 93vh !important;*/
-/*    overflow: hidden !important;*/
+/*    height: calc(100vh - 7vh) !important;*/
 /*}*/
 
 /*.ce-settings-column {*/
@@ -143,7 +179,7 @@
 .logout-tab {
   position: absolute;
   top: 2%;
-  right: 22px;
+  right: 2%;
   background-color: #282c34;
   color: #27CC58;
   padding: 5px;
@@ -169,10 +205,10 @@
 /*  }*/
 /*}*/
 
-/*::-webkit-scrollbar {*/
-/*  width: 0; !* Remove scrollbar space *!*/
-/*  background: transparent; !* Optional: just make scrollbar invisible *!*/
-/*}*/
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
 
 
 /* chat page mobile */
