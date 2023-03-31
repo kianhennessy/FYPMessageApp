@@ -306,9 +306,44 @@ html, body {
     background-color: #282c34 !important;
     color: #27CC58 !important;
   }
+
+
 }
 
+/*.ce-chat-list-column{*/
+/*  padding: 100px !important;*/
+/*  height: 10vh !important;*/
+/*}*/
 
+/*.ce-chat-list button{*/
+/*    padding-left: 100px !important;*/
+/*  color: red;*/
+
+
+/*}*/
+
+/*.ce-chats-container{*/
+/*  padding: 100px !important;*/
+/*  height: 40vh !important;*/
+/*  color: red*/
+/*}*/
+
+/*.ce-chat-form-container{*/
+/*  padding: 100px !important;*/
+/*  padding-left: 1000px !important;*/
+/*}*/
+
+/*button {*/
+/*  padding: 100px !important;*/
+/*}*/
+
+/*.new-chat-plus-button{*/
+/*  padding: 100px !important;*/
+/*}*/
+
+/*.ce-primary-button{*/
+/*  padding-left: 100px !important;*/
+/*}*/
 
 
 .ce-section-title-container .ce-person-title-container svg{

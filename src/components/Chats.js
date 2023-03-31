@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react"
 
 import axios from 'axios'
 import { useHistory } from "react-router-dom"
-import {ChatEngine, deleteMessage} from 'react-chat-engine'
+import {ChatEngine, deleteMessage, newChat} from 'react-chat-engine'
 
 
 import { useAuth } from "../contexts/AuthContext"
@@ -23,6 +23,15 @@ export default function Chats() {
         history.push("/")
     }
 
+    // async function handleNewChat() {
+    //     const chat = await newChat({
+    //         title: 'New Chat',
+    //         firstMessage: 'Hello',
+    //         users: ['user1', 'user2'],
+    //         is_direct_chat: true,
+    //     });
+    // }
+
     const renderChatLogout = (chat) => {
         return (
             <div>
@@ -33,6 +42,19 @@ export default function Chats() {
             </div>
         )
     }
+
+    // const renderNewChat = (chat) => {
+    //     return (
+    //         <div>
+    //             <div onClick={handleNewChat}>
+    //                 new chat
+    //             </div>
+    //
+    //         </div>
+    //     )
+    // }
+
+
 
     useEffect(() => {
         if (!didMountRef.current) {
@@ -93,12 +115,25 @@ export default function Chats() {
                     </div>
 
             <ChatEngine
-                // renderChatHeader={renderChatLogout}
+
+                // //render a new chat button
+                // renderNewChatForm={(handle) => <div>new chat</div>}
+                // renderChatHeader={renderNewChat}
                 height="93vh"
                 projectID="8afaea8d-1514-4b90-bc09-a5f244987db7"
                 userName={user.email}
                 userSecret={user.uid}
 
+
+
+
+
+                onDeleteChat={(chat) => {
+                    console.log("Delete Chat fired: ", chat);
+                    setLoading(true);
+                    setLoading(false);
+                    }
+                }
 
                 onDeleteMessage={() => {
                     setLoading(true);
