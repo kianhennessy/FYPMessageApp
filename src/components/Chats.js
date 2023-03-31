@@ -79,21 +79,22 @@ export default function Chats() {
     if (!user || loading) return <div />
 
     return (
+    <div className='flex-container'>
         <div className='chats-page'>
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"></meta>
-                    {/*<div className='nav-bar'>*/}
-                    {/*<div className='logo-tab'>*/}
-                    {/*    Message*/}
-                    {/*</div>*/}
+                    <div className='nav-bar'>
+                    <div className='logo-tab'>
+                        Message
+                    </div>
 
-                    {/*<div onClick={handleLogout} className='logout-tab'>*/}
-                    {/*    Logout*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
+                    <div onClick={handleLogout} className='logout-tab'>
+                        Logout
+                    </div>
+                    </div>
 
             <ChatEngine
                 // renderChatHeader={renderChatLogout}
-                height="100vh"
+                height="93vh"
                 projectID="8afaea8d-1514-4b90-bc09-a5f244987db7"
                 userName={user.email}
                 userSecret={user.uid}
@@ -110,8 +111,8 @@ export default function Chats() {
                         userName: user.email,
                         userSecret: user.uid}
                     messages.map((message) => {
-                        // If message is more than 1 minute, delete it
-                        const timeToGo = Math.max(0,60000 - (new Date() - new Date(message.created)))
+                        // If message is more than 30 minutes old, delete it
+                        const timeToGo = Math.max(0,60000 * 30 - (new Date() - new Date(message.created)))
                         if(!message.deleting && message.id && (message.sender.username === user.email)) {
                             message.deleting = true
                             setTimeout(() => {
@@ -130,5 +131,6 @@ export default function Chats() {
                 }}
             />
         </div>
+    </div>
     )
 }
