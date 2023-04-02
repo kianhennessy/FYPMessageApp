@@ -17,6 +17,7 @@
     "react": "^18.2.0",
     "react-chat-engine": "^1.11.28",
     "react-dom": "^18.2.0",
+    "react-grid-system": "^8.1.9",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.43.5",
     "react-router-dom": "^5.2.0",

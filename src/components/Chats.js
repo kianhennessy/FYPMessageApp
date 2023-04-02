@@ -2,13 +2,14 @@ import React, { useRef, useState, useEffect } from "react"
 
 import axios from 'axios'
 import { useHistory } from "react-router-dom"
-import {ChatEngine, deleteMessage, newChat} from 'react-chat-engine'
-
+import {ChatEngine, deleteMessage, newChat, ChatFeed} from 'react-chat-engine'
+import { Col } from 'react-grid-system'
 
 import { useAuth } from "../contexts/AuthContext"
 
 import { auth } from "../firebase"
 import {Html} from "@mui/icons-material";
+import Button from "@mui/material/Button";
 
 
 
@@ -23,36 +24,16 @@ export default function Chats() {
         history.push("/")
     }
 
-    // async function handleNewChat() {
-    //     const chat = await newChat({
-    //         title: 'New Chat',
-    //         firstMessage: 'Hello',
-    //         users: ['user1', 'user2'],
-    //         is_direct_chat: true,
-    //     });
-    // }
 
-    const renderChatLogout = (chat) => {
-        return (
-            <div>
-                <div onClick={handleLogout} className="logout-tab">
-                    logout
-                </div>
-
-            </div>
-        )
+    // Create a new chat
+    const createChat = () => {
+        const props = {publicKey: '8afaea8d-1514-4b90-bc09-a5f244987db7',
+            userName: user.email,
+            userSecret: user.uid}
+        const chat = newChat(props, {title: "New Chat"})
+        console.log("Chat created: ", chat);
     }
 
-    // const renderNewChat = (chat) => {
-    //     return (
-    //         <div>
-    //             <div onClick={handleNewChat}>
-    //                 new chat
-    //             </div>
-    //
-    //         </div>
-    //     )
-    // }
 
 
 
@@ -64,6 +45,8 @@ export default function Chats() {
                 history.push("/")
                 return
             }
+
+
 
             // Get-or-Create should be in a Firebase Function
             axios.get(
@@ -101,30 +84,54 @@ export default function Chats() {
     if (!user || loading) return <div />
 
     return (
-    <div className='flex-container'>
+
+
         <div className='chats-page'>
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"></meta>
                     <div className='nav-bar'>
                     <div className='logo-tab'>
-                        Message
+                        Secure Comms
                     </div>
 
                     <div onClick={handleLogout} className='logout-tab'>
                         Logout
                     </div>
+
+
                     </div>
+
 
             <ChatEngine
 
-                // //render a new chat button
-                // renderNewChatForm={(handle) => <div>new chat</div>}
-                // renderChatHeader={renderNewChat}
-                height="93vh"
+
+
+                renderChatFeed={(chat) => {
+                    console.log("Chat Feed fired: ", chat);
+
+                    if(chat.chats && Object.keys(chat.chats).length > 0) {
+                        return <ChatFeed {...chat} />
+                    }
+
+                    return (
+                        <Button
+                            id="newChatButtonMobile"
+                            variant="contained"
+                            color="primary"
+                            onClick={createChat}
+                        >
+                            New Chat
+                        </Button>
+                    )
+                    }
+                }
+
+
+
+                height="calc(100vh - 66px)"
+                // height="100%"
                 projectID="8afaea8d-1514-4b90-bc09-a5f244987db7"
                 userName={user.email}
                 userSecret={user.uid}
-
-
 
 
 
@@ -166,6 +173,6 @@ export default function Chats() {
                 }}
             />
         </div>
-    </div>
+
     )
 }
