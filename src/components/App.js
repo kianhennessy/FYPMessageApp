@@ -10,6 +10,8 @@ import Login from "./Login"
 import VerifyMfa from "./VerifyMfa";
 import Signup from "./Signup";
 import ResetPassword from "./ResetPassword";
+import About from "./About";
+import Home from "./Home";
 
 function App() {
 
@@ -18,12 +20,16 @@ function App() {
         <Router>
           <AuthProvider>
             <Switch>
+
+                <Route path="/about" component={About} />
                 <Route path="/reset-password" component={ResetPassword} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/chats" component={Chats} />
                 <Route path="/mfa" component={EnrollMfa} />
                 <Route path="/verify-mfa" component={VerifyMfa} />
-              <Route path="/" component={Login} />
+                <Route path="/login" component={Login} />
+                <Route path="/" component={Home} />
+
             </Switch>
           </AuthProvider>
         </Router>

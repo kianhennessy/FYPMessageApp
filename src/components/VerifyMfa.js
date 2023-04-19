@@ -46,7 +46,7 @@ function VerifyMfa() {
         history.push("/")
     }
 
-    // MUI alert for legit mfa code
+
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     const [showError, setShowError] = useState(false);

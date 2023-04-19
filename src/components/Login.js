@@ -172,7 +172,7 @@ export default function Login() {
         setVerificationId(
             await phoneAuthProvider.verifyPhoneNumber(phoneOpts, window.recaptchaVerifier)
         );
-        // alert("sms text sent!");
+
         setShowCodeSentAlert(true);
         handleClickOpen();
     };
@@ -250,7 +250,7 @@ export default function Login() {
             </Snackbar>
             <Snackbar open={showCodeSentAlert} autoHideDuration={5000} onClose={() => setShowCodeSentAlert(false)} >
                 <Alert onClose={() => setShowCodeSentAlert(false)} severity="info" sx={{ width: '100%' }}>
-                    Code sent!
+                    2FA code has been texted to your phone
                 </Alert>
             </Snackbar>
             <Container component="main" maxWidth="xs">

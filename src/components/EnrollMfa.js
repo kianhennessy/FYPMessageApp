@@ -23,6 +23,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Alert } from '@mui/material';
 import Snackbar from "@mui/material/Snackbar";
 
+import { parsePhoneNumberFromString } from "libphonenumber-js";
+
+
 const themeDark = createTheme({
     palette: {
         background: {
@@ -32,6 +35,9 @@ const themeDark = createTheme({
             primary: "#27CC58"
         },
         secondary: {
+            main: "#27CC58"
+        },
+        helperText: {
             main: "#27CC58"
         }
     }
@@ -56,7 +62,6 @@ export default function EnrollMfa() {
     const [showPhoneError, setShowPhoneError] = useState(false);
     const [showCaptchError, setShowCaptchError] = useState(false);
 
-    const [showIrishPhoneError, setShowIrishPhoneError] = useState(false);
 
     useEffect(() => {
         // Setup a global captcha
@@ -136,6 +141,7 @@ export default function EnrollMfa() {
 
         const phoneNumberRegex = /^\+?[1-9]\d{1,14}$/;
 
+
         if(!phoneNumberRegex.test(document.getElementById('enroll-phone').value)){
             setShowPhoneError(true);
             //hide the show error alert
@@ -143,15 +149,11 @@ export default function EnrollMfa() {
         }
 
 
-
         const phoneNumber = document.getElementById('enroll-phone').value;
 
-        if (!phoneNumber.startsWith('+353')) {
-            setShowIrishPhoneError(true);
-        }
 
         event.preventDefault();
-        //setShowError(null)
+
 
         try {
             const user = auth.currentUser;
@@ -172,8 +174,7 @@ export default function EnrollMfa() {
             );
             setShowSuccessAlert(true);
 
-            // alert('sms text sent!');
-            // history.push("/verify-mfa")
+
         } catch (error) {
             console.log(error)
             if(error.code === 'auth/unverified-email'){
@@ -193,11 +194,15 @@ export default function EnrollMfa() {
                 setShowCaptchError(true);
             }
 
-
             if(document.getElementById('enroll-phone').value === '' && error.code === 'auth/unverified-email'){
 
                 setShowPhoneError(true);
                 //hide the show error alert
+                setShowError(false);
+            }
+
+            if(error.code === 'auth/invalid-phone-number'){
+                setShowPhoneError(true);
                 setShowError(false);
             }
 
@@ -249,7 +254,7 @@ export default function EnrollMfa() {
             </Snackbar>
             <Snackbar open={showPhoneError}>
                 <Alert onClose={() => setShowPhoneError(false)} severity="error" sx={{ width: '100%' }}>
-                    Please enter a valid phone number
+                    Please enter a valid phone number with country code
                 </Alert>
             </Snackbar>
             <Snackbar open={showCaptchError}>
@@ -258,11 +263,6 @@ export default function EnrollMfa() {
                 </Alert>
             </Snackbar>
 
-            <Snackbar open={showIrishPhoneError} autoHideDuration={5000} onClose={() => setShowIrishPhoneError(false)}>
-                <Alert onClose={() => setShowIrishPhoneError(false)} severity="error" sx={{ width: '100%' }}>
-                    Please enter an Irish phone number starting with +353
-                </Alert>
-            </Snackbar>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -293,6 +293,7 @@ export default function EnrollMfa() {
                             id='enroll-phone'
                             placeholder="Phone Number"
                             type="text"
+                            helperText="Please include country code"
                             required
                             fullWidth
                             margin={"normal"}

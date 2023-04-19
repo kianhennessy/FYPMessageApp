@@ -13,6 +13,10 @@
 
 }
 
+.MuiFormHelperText-root {
+  color: #27CC58 !important;
+}
+
 
 html, body {
   height: 100vh;
@@ -509,3 +513,11 @@ html, body {
   margin-left: auto;
   margin-right: auto;
 }
+
+
+.black-list{
+  background-color: #282c34 !important;
+}
+
+
+

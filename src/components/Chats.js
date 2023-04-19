@@ -3,12 +3,12 @@ import React, { useRef, useState, useEffect } from "react"
 import axios from 'axios'
 import { useHistory } from "react-router-dom"
 import {ChatEngine, deleteMessage, newChat, ChatFeed} from 'react-chat-engine'
-import { Col } from 'react-grid-system'
+
 
 import { useAuth } from "../contexts/AuthContext"
 
 import { auth } from "../firebase"
-import {Html} from "@mui/icons-material";
+
 import Button from "@mui/material/Button";
 
 
@@ -48,7 +48,7 @@ export default function Chats() {
 
 
 
-            // Get-or-Create should be in a Firebase Function
+
             axios.get(
                 'https://api.chatengine.io/users/me/',
                 { headers: {
@@ -75,7 +75,6 @@ export default function Chats() {
                                 .catch(e => console.log('e', e.response))
                         })
                 //})
-            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         }
     }, [user, history])
@@ -104,7 +103,6 @@ export default function Chats() {
             <ChatEngine
 
 
-
                 renderChatFeed={(chat) => {
                     console.log("Chat Feed fired: ", chat);
 
@@ -128,7 +126,6 @@ export default function Chats() {
 
 
                 height="calc(100vh - 66px)"
-                // height="100%"
                 projectID="8afaea8d-1514-4b90-bc09-a5f244987db7"
                 userName={user.email}
                 userSecret={user.uid}

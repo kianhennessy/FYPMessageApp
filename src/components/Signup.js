@@ -46,14 +46,6 @@ function SignUp() {
 
     const [showInvalidCredAlert, setShowInvalidCredAlert] = useState(false);
 
-    // const [alert, setAlert] = useState({ open: false, message: '', severity: '' });
-    //
-    // const showAlert = (message, severity) => {
-    //     setAlert({ open: true, message, severity });
-    //     setTimeout(() => {
-    //         setAlert({ open: false, message: '', severity: '' });
-    //     }, 3000);
-    // }
 
     const handleSubmit = async (event) => {
 
@@ -136,22 +128,22 @@ function SignUp() {
         <ThemeProvider theme={themeDark}>
             <Snackbar open={showErrorAlert} autoHideDuration={5000} onClose={() => setShowErrorAlert(false)}>
                 <Alert onClose={() => setShowErrorAlert(false)} severity="error" sx={{ width: '100%' }}>
-                    Please enter a valid email address.
+                    Please enter a valid email address
                 </Alert>
             </Snackbar>
             <Snackbar open={showPassAlert} autoHideDuration={5000} onClose={() => setShowPassAlert(false)}>
                 <Alert onClose={() => setShowPassAlert(false)} severity="error" sx={{ width: '100%' }}>
-                    Password must be at least 6 characters long.
+                    Password must be at least 6 characters long
                 </Alert>
             </Snackbar>
             <Snackbar open={showEmailInUseAlert} autoHideDuration={5000} onClose={() => setShowEmailInUseAlert(false)}>
                 <Alert onClose={() => setShowEmailInUseAlert(false)} severity="error" sx={{ width: '100%' }}>
-                    Email already in use.
+                    Email already in use
                 </Alert>
             </Snackbar>
             <Snackbar open={showInvalidCredAlert} autoHideDuration={5000} onClose={() => setShowInvalidCredAlert(false)}>
                 <Alert onClose={() => setShowInvalidCredAlert(false)} severity="error" sx={{ width: '100%' }}>
-                    Please enter a valid email address and password.
+                    Please enter a valid email address and password
                 </Alert>
             </Snackbar>
             <Container component="main" maxWidth="xs">
@@ -198,7 +190,7 @@ function SignUp() {
                         </Button>
                         <Grid container justifyContent={'center'}>
                             <Grid item>
-                                <Link href="/" variant="body2" color={"secondary"}>
+                                <Link href="/login" variant="body2" color={"secondary"}>
                                     {"Already have an account? Log in"}
                                 </Link>
                             </Grid>
