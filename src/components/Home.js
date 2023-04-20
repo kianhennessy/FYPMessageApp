@@ -185,17 +185,17 @@ export default function Home() {
                         alignItems="center"
 
                     >
-                        <Grid item xs={1}  >
+                        <Grid item xs={2}  sm={1}>
                             <Image
                                 src = {logo}
                             />
                         </Grid>
 
-                        <Grid item xs={10} >
+                        <Grid item xs={12} sm={12} >
                         <Typography
-                            marginRight="50px"
+
                             component="h1"
-                            variant="h2"
+                            variant="h3"
                             align="center"
                             color="text.primary"
 
@@ -208,7 +208,8 @@ export default function Home() {
 
 
                 <Typography variant="h5" align="center" color="text.primary" paragraph paddingTop="10px">
-                    A secure messaging platform with encryption
+                    A secure messaging service that ensures users privacy with end-to-end encryption
+
                 </Typography>
                 <Stack
                     sx={{ pt: 4 }}
