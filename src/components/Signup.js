@@ -4,32 +4,48 @@ import "firebase/compat/firestore";
 import "firebase/compat/auth";
 
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+
 
 import { Alert } from '@mui/material';
 import Snackbar from "@mui/material/Snackbar";
+import navlogo from "../images/GREYsecurecomms128.png";
+import GlobalStyles from "@mui/material/GlobalStyles";
+import logo from '../images/securecomms128.png';
+import Image from "mui-image";
+
 
 const themeDark = createTheme({
     palette: {
         background: {
-            default: "#222222"
+            paper: "#525969"
         },
         text: {
-            primary: "#27CC58"
+            primary: "#27CC58",
+            secondary: "#282c34",
+
         },
         secondary: {
             main: "#27CC58"
-        }
+        },
+        button: {
+            main: "#282c34",
+            contrastText: "#27CC58",
+        },
+        CardContent: {
+            main: "#282c34",
+        },
+
     }
 });
 
@@ -126,6 +142,57 @@ function SignUp() {
 
 
         <ThemeProvider theme={themeDark}>
+            <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
+            <CssBaseline />
+            <AppBar
+                position="static"
+                color="secondary"
+                elevation={0}
+
+            >
+
+            </AppBar>
+
+            <Toolbar sx={{ flexWrap: 'wrap',
+                backgroundColor: '#27CC58',
+            }}>
+                <a href="/">
+                    <img src={navlogo} alt="logo" className="logosize"/>
+                </a>
+
+                <Typography variant="h6"
+                            color="text.secondary"
+                            noWrap
+                            sx={{ flexGrow: 1,
+                                textDecoration: 'none',
+                            }}
+                            component={Link}
+                >
+
+                    <Link href="/" color="text.secondary" sx={{
+                        textDecoration: 'none',
+                        boxShadow: 'none'
+                    }}>
+                        SecureComms
+                    </Link>
+                </Typography>
+
+                <nav>
+                    <Button
+                        edge="end"
+                        variant="contained"
+                        color="button"
+                        href="/login"
+                    >
+                        Log in
+                    </Button>
+                </nav>
+            </Toolbar>
+
+
+
+
+
             <Snackbar open={showErrorAlert} autoHideDuration={5000} onClose={() => setShowErrorAlert(false)}>
                 <Alert onClose={() => setShowErrorAlert(false)} severity="error" sx={{ width: '100%' }}>
                     Please enter a valid email address
@@ -146,8 +213,12 @@ function SignUp() {
                     Please enter a valid email address and password
                 </Alert>
             </Snackbar>
+
+
+
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
+
+
                 <Box
                     sx={{
                         marginTop: 8,
@@ -156,9 +227,14 @@ function SignUp() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
+                    <Image
+                        src = {logo}
+                        sx={{
+                            maxHeight: 40,
+                            maxWidth: 40,
+                        }}
+
+                    />
 
                     <Typography component="h1" variant="h5">
                         Sign Up

@@ -8,15 +8,12 @@ import "firebase/compat/auth";
 
 import { auth } from "../firebase";
 import { useHistory } from "react-router-dom"
-
 import { useForm } from 'react-hook-form';
 
 
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -36,21 +33,35 @@ import DialogTitle from '@mui/material/DialogTitle';
 import {styled} from "@mui/material";
 
 import { Helmet } from 'react-helmet';
+import Toolbar from "@mui/material/Toolbar";
+import navlogo from "../images/GREYsecurecomms128.png";
+import AppBar from "@mui/material/AppBar";
 
-
+import logo from '../images/securecomms128.png';
+import Image from "mui-image";
 
 
 const themeDark = createTheme({
     palette: {
         background: {
-            default: "#222222"
+            paper: "#525969"
         },
         text: {
-            primary: "#27CC58"
+            primary: "#27CC58",
+            secondary: "#282c34",
+
         },
         secondary: {
-            main: "#27CC58"
+            main: "#27CC58",
         },
+        button: {
+            main: "#282c34",
+            contrastText: "#27CC58",
+        },
+        CardContent: {
+            main: "#282c34",
+        },
+
     }
 });
 
@@ -253,6 +264,46 @@ export default function Login() {
                     2FA code has been texted to your phone
                 </Alert>
             </Snackbar>
+
+            <AppBar
+                position="static"
+                color="secondary"
+                elevation={0}
+                sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
+            >
+                <Toolbar sx={{ flexWrap: 'wrap' }}>
+                    <a href="/">
+                        <img src={navlogo} alt="logo" className="logosize"/>
+                    </a>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        sx={{ flexGrow: 1,
+                            textDecoration: 'none',
+
+                        }}
+                        component={Link}
+                    >
+                        <Link
+                            href="/"
+
+                            sx={{
+                                textDecoration: 'none',
+                                boxShadow: 'none',
+                                color: 'text.secondary'
+                            }}
+                        >
+                            SecureComms
+                        </Link>
+                    </Typography>
+
+
+
+                </Toolbar>
+            </AppBar>
+
+
+
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -263,9 +314,16 @@ export default function Login() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
+
+                    <Image
+                        src = {logo}
+
+                        sx={{
+                            maxHeight: 40,
+                            maxWidth: 40,
+                        }}
+
+                    />
                     <Typography component="h1" variant="h5" >
                         Log in
                     </Typography>

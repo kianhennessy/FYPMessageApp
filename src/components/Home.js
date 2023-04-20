@@ -8,15 +8,15 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import StarIcon from '@mui/icons-material/StarBorder';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
-import {CardActionArea, CardMedia, Paper} from "@mui/material";
+import {CardActionArea, CardMedia, makeStyles, Paper} from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Stack from "@mui/material/Stack";
+
 
 
 import Image from 'mui-image'
@@ -29,6 +29,8 @@ import selfd from '../images/selfdestruct.png';
 import twofa from '../images/2fa.png';
 
 import logo from '../images/securecomms.png';
+import navlogo from '../images/GREYsecurecomms128.png';
+import footerlogo from '../images/securecomms128.png';
 
 
 const themeDark = createTheme({
@@ -50,7 +52,7 @@ const themeDark = createTheme({
         },
         CardContent: {
             main: "#282c34",
-        }
+        },
 
     }
 });
@@ -100,6 +102,25 @@ const tiers = [
     },
 ];
 
+function Copyright() {
+    return (
+        <Typography variant="body2" color="text.primary" align="center">
+            {'Copyright © '}
+            <Link color="inherit" href="/"
+                  sx={{
+                      textDecoration: 'none',
+                      boxShadow: 'none',
+                      color: 'text.primary'
+                  }}
+            >
+                SecureComms
+            </Link>{' '}
+            {new Date().getFullYear()}
+        </Typography>
+    );
+}
+
+
 
 export default function Home() {
     return (
@@ -114,9 +135,31 @@ export default function Home() {
                 sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
             >
                 <Toolbar sx={{ flexWrap: 'wrap' }}>
-                    <Typography variant="h6" color="text.secondary" noWrap sx={{ flexGrow: 1 }}>
+                    <a href="/">
+                        <img src={navlogo} alt="logo" className="logosize"/>
+                    </a>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        sx={{ flexGrow: 1,
+                            textDecoration: 'none',
+
+                        }}
+                        component={Link}
+                    >
+                        <Link
+                            href="/"
+
+                            sx={{
+                            textDecoration: 'none',
+                            boxShadow: 'none',
+                                color: 'text.secondary'
+                        }}
+                        >
                         SecureComms
+                        </Link>
                     </Typography>
+
                     <nav>
                         <Button
                             edge="end"
@@ -133,29 +176,29 @@ export default function Home() {
 
 
             {/* Hero unit */}
-                <Container >
+            {/*    <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>*/}
+                <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
                     <Grid
                         container
                         direction="row"
                         justifyContent="center"
                         alignItems="center"
+
                     >
-                        <Grid item >
+                        <Grid item xs={1}  >
                             <Image
-                                sx={{
-                                    maxHeight: { xs: '10%', md: '10%' },
-                                    maxWidth: { xs: '10%', md: '10%' },
-                                }}
-                                src = {logo} />
+                                src = {logo}
+                            />
                         </Grid>
 
-                        <Grid item xs={12} >
+                        <Grid item xs={10} >
                         <Typography
+                            marginRight="50px"
                             component="h1"
                             variant="h2"
                             align="center"
                             color="text.primary"
-                            gutterBottom
+
                         >
                             SecureComms
                         </Typography>
@@ -164,7 +207,7 @@ export default function Home() {
 
 
 
-                <Typography variant="h5" align="center" color="text.primary" paragraph>
+                <Typography variant="h5" align="center" color="text.primary" paragraph paddingTop="10px">
                     A secure messaging platform with encryption
                 </Typography>
                 <Stack
@@ -232,10 +275,25 @@ export default function Home() {
                 </Grid>
             </Container>
 
+                {/* Footer */}
+                <Box sx={{ bgcolor: 'background.paper', p: 5 , marginTop:3 }} component="footer">
+
+                    <Image
+                        src = {footerlogo}
+                        sx={{
+                            maxHeight: 50,
+                            maxWidth: 50,
+                        }}
+
+                    />
+                    <Typography variant="h6" align="center" gutterBottom>
+                        SecureComms
+                    </Typography>
 
 
-
-            {/* End footer */}
+                    <Copyright />
+                </Box>
+                {/* End footer */}
                 </ThemeProvider>
         </React.Fragment>
     );

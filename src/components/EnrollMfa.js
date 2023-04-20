@@ -24,6 +24,8 @@ import { Alert } from '@mui/material';
 import Snackbar from "@mui/material/Snackbar";
 
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import logo from "../images/securecomms128.png";
+import Image from "mui-image";
 
 
 const themeDark = createTheme({
@@ -78,7 +80,7 @@ export default function EnrollMfa() {
             const timer = setTimeout(() => {
                 setShowSuccessAlert(false);
                 history.push("/verify-mfa");
-            }, 3000);
+            }, 2000);
 
             // Clean up the timer when the component is unmounted or showAlert changes
             return () => clearTimeout(timer);
@@ -275,9 +277,15 @@ export default function EnrollMfa() {
 
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
+                    <Image
+                        src = {logo}
+
+                        sx={{
+                            maxHeight: 40,
+                            maxWidth: 40,
+                        }}
+
+                    />
                     <Typography component="h1" variant="h5">
                         2FA Enrollment
                     </Typography>

@@ -19,6 +19,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Alert } from '@mui/material';
 import Snackbar from "@mui/material/Snackbar";
 import { useHistory } from 'react-router-dom';
+import logo from "../images/securecomms128.png";
+import Image from "mui-image";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import navlogo from "../images/GREYsecurecomms128.png";
 
 const themeDark = createTheme({
     palette: {
@@ -114,6 +119,47 @@ function ResetPassword(){
                     Account not found. Please try again.
                 </Alert>
             </Snackbar>
+
+            <AppBar
+                position="static"
+                color="secondary"
+                elevation={0}
+                sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
+            >
+                <Toolbar sx={{ flexWrap: 'wrap' }}>
+                    <a href="/">
+                        <img src={navlogo} alt="logo" className="logosize"/>
+                    </a>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        sx={{ flexGrow: 1,
+                            textDecoration: 'none',
+
+                        }}
+                        component={Link}
+                    >
+                        <Link
+                            href="/"
+
+                            sx={{
+                                textDecoration: 'none',
+                                boxShadow: 'none',
+                                color: 'text.secondary'
+                            }}
+                        >
+                            SecureComms
+                        </Link>
+                    </Typography>
+
+
+
+                </Toolbar>
+            </AppBar>
+
+
+
+
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -126,9 +172,15 @@ function ResetPassword(){
 
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
+                    <Image
+                        src = {logo}
+
+                        sx={{
+                            maxHeight: 40,
+                            maxWidth: 40,
+                        }}
+
+                    />
                     <Typography component="h1" variant="h5">
                         Reset Password
                     </Typography>

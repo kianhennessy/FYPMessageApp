@@ -21,6 +21,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { Alert } from '@mui/material';
 import Snackbar from "@mui/material/Snackbar";
+import logo from "../images/securecomms128.png";
+import Image from "mui-image";
 
 const themeDark = createTheme({
     palette: {
@@ -153,9 +155,13 @@ function VerifyMfa() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
+                    <Image
+                        src = {logo}
+                        sx={{
+                            maxHeight: 40,
+                            maxWidth: 40,
+                        }}
+                    />
                     <Typography component="h1" variant="h5">
                         Verify 2FA Code
                     </Typography>
