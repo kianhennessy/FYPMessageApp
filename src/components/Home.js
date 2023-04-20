@@ -133,7 +133,7 @@ export default function Home() {
 
 
             {/* Hero unit */}
-                <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
+                <Container >
                     <Grid
                         container
                         direction="row"
