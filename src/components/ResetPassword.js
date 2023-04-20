@@ -28,13 +28,19 @@ import navlogo from "../images/GREYsecurecomms128.png";
 const themeDark = createTheme({
     palette: {
         background: {
-            default: "#222222"
+            paper: "#525969"
         },
         text: {
-            primary: "#27CC58"
+            primary: "#27CC58",
+            secondary: "#282c34",
+
         },
         secondary: {
             main: "#27CC58"
+        },
+        button: {
+            main: "#282c34",
+            contrastText: "#27CC58",
         }
     }
 });
@@ -152,6 +158,17 @@ function ResetPassword(){
                         </Link>
                     </Typography>
 
+                    <nav>
+                        <Button
+                            edge="end"
+                            variant="contained"
+                            color="button"
+                            href="/login"
+                        >
+                            Log in
+                        </Button>
+                    </nav>
+
 
 
                 </Toolbar>
@@ -178,6 +195,7 @@ function ResetPassword(){
                         sx={{
                             maxHeight: 40,
                             maxWidth: 40,
+                            marginBottom: 2,
                         }}
 
                     />

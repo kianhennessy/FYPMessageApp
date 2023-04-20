@@ -321,6 +321,7 @@ export default function Login() {
                         sx={{
                             maxHeight: 40,
                             maxWidth: 40,
+                            marginBottom: 2,
                         }}
 
                     />

@@ -134,16 +134,12 @@ function SignUp() {
     }, [showErrorAlert, showPassAlert]);
 
     return (
-        // <form onSubmit={handleSubmit}>
-        //     <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        //     <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        //     <button type="submit">Sign up</button>
-        // </form>
 
 
         <ThemeProvider theme={themeDark}>
             <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
             <CssBaseline />
+
             <AppBar
                 position="static"
                 color="secondary"
@@ -151,11 +147,9 @@ function SignUp() {
 
             >
 
-            </AppBar>
 
-            <Toolbar sx={{ flexWrap: 'wrap',
-                backgroundColor: '#27CC58',
-            }}>
+
+            <Toolbar sx={{ flexWrap: 'wrap' }}>
                 <a href="/">
                     <img src={navlogo} alt="logo" className="logosize"/>
                 </a>
@@ -188,7 +182,7 @@ function SignUp() {
                     </Button>
                 </nav>
             </Toolbar>
-
+            </AppBar>
 
 
 
@@ -232,6 +226,7 @@ function SignUp() {
                         sx={{
                             maxHeight: 40,
                             maxWidth: 40,
+                            marginBottom: 2,
                         }}
 
                     />

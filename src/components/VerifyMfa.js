@@ -112,22 +112,6 @@ function VerifyMfa() {
 
 
     return (
-        // <div id='login-page'>
-        //     <div id='login-card'>
-        //         <h2>Verify mfa</h2>
-        //
-        //         <div>
-        //             <input id='verify-mfa-code' type="text"/>
-        //             <button id='submit-code' onClick={verifyMfaCode}>submit mfa code</button>
-        //             {/* button to enroll in mfa*/}
-        //             <div onClick={handleLogout}>
-        //                 Logout
-        //             </div>
-        //         </div>
-        //         <br/>
-        //         <br/>
-        //     </div>
-        // </div>
 
         <ThemeProvider theme={themeDark}>
             <Snackbar open={showSuccessAlert}>

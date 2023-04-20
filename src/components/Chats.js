@@ -10,6 +10,7 @@ import { useAuth } from "../contexts/AuthContext"
 import { auth } from "../firebase"
 
 import Button from "@mui/material/Button";
+import navlogo from "../images/GREYsecurecomms128.png";
 
 
 
@@ -89,8 +90,10 @@ export default function Chats() {
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"></meta>
                     <div className='nav-bar'>
                     <div className='logo-tab'>
-                        Secure Comms
+                        SecureComms
                     </div>
+                            <img src={navlogo} alt="logo" className="logosize2"/>
+
 
                     <div onClick={handleLogout} className='logout-tab'>
                         Logout
@@ -125,7 +128,7 @@ export default function Chats() {
 
 
 
-                height="calc(100vh - 66px)"
+                height="calc(100vh - 40px)"
                 projectID="8afaea8d-1514-4b90-bc09-a5f244987db7"
                 userName={user.email}
                 userSecret={user.uid}

@@ -213,24 +213,6 @@ export default function EnrollMfa() {
 
 
     return (
-        // <div id='login-page'>
-        //     <div id='login-card'>
-        //         <h2>MFA</h2>
-        //
-        //         <div>
-        //             <p>Please verify your email address before enrolling in additional factors</p>
-        //             <input id='enroll-phone' type="text"/>
-        //             <button id='enroll-button' onClick={enroll}>Send Code</button>
-        //
-        //         {/* button to enroll in mfa*/}
-        //             <div onClick={handleLogout}>
-        //                 Logout
-        //             </div>
-        //         </div>
-        //         <br/><br/>
-        //
-        //     </div>
-        // </div>
 
         <ThemeProvider theme={themeDark}>
 
