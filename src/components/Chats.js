@@ -12,6 +12,8 @@ import { auth } from "../firebase"
 import Button from "@mui/material/Button";
 import navlogo from "../images/GREYsecurecomms128.png";
 
+
+// API keys
 const API_KEY = process.env.REACT_APP_CHATENGINE_PUBLIC_KEY;
 const API_SECRET = process.env.REACT_APP_CHATENGINE_SECRET_KEY;
 
