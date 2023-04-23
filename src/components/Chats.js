@@ -12,7 +12,8 @@ import { auth } from "../firebase"
 import Button from "@mui/material/Button";
 import navlogo from "../images/GREYsecurecomms128.png";
 
-
+const API_KEY = process.env.REACT_APP_CHATENGINE_PUBLIC_KEY;
+const API_SECRET = process.env.REACT_APP_CHATENGINE_SECRET_KEY;
 
 export default function Chats() {
     const didMountRef = useRef(false)
@@ -26,13 +27,17 @@ export default function Chats() {
     }
 
 
+
+
+
     // Create a new chat
     const createChat = () => {
-        const props = {publicKey: '8afaea8d-1514-4b90-bc09-a5f244987db7',
+        const props = {publicKey: API_KEY,
             userName: user.email,
             userSecret: user.uid}
         const chat = newChat(props, {title: "New Chat"})
         console.log("Chat created: ", chat);
+
     }
 
 
@@ -53,7 +58,7 @@ export default function Chats() {
             axios.get(
                 'https://api.chatengine.io/users/me/',
                 { headers: {
-                        "project-id": '8afaea8d-1514-4b90-bc09-a5f244987db7',
+                        "project-id": API_KEY,
                         "user-name": user.email,
                         "user-secret": user.uid
                     }}
@@ -70,7 +75,7 @@ export default function Chats() {
                             axios.post(
                                 'https://api.chatengine.io/users/',
                                 formdata,
-                                {headers: { "private-key": "69bf80d7-db82-427c-8830-1b78c5abdbd0"} }
+                                {headers: { "private-key": API_SECRET} }
                             )
                                 .then(() => setLoading(false))
                                 .catch(e => console.log('e', e.response))
@@ -129,7 +134,7 @@ export default function Chats() {
 
 
                 height="calc(100vh - 40px)"
-                projectID="8afaea8d-1514-4b90-bc09-a5f244987db7"
+                projectID={API_KEY}
                 userName={user.email}
                 userSecret={user.uid}
 
@@ -149,7 +154,7 @@ export default function Chats() {
                 }
                 onGetMessages={(chatId, messages) => {
                     console.log("Get Messages fired: ", messages);
-                    const props = {publicKey: '8afaea8d-1514-4b90-bc09-a5f244987db7',
+                    const props = {publicKey: API_KEY,
                         userName: user.email,
                         userSecret: user.uid}
                     messages.map((message) => {
