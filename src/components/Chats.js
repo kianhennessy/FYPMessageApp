@@ -15,6 +15,9 @@ import navlogo from "../images/GREYsecurecomms128.png";
 const API_KEY = process.env.REACT_APP_CHATENGINE_PUBLIC_KEY;
 const API_SECRET = process.env.REACT_APP_CHATENGINE_SECRET_KEY;
 
+process.env.REACT_APP_CHATENGINE_SECRET_KEY = API_SECRET
+process.env.REACT_APP_CHATENGINE_PUBLIC_KEY = API_KEY
+
 export default function Chats() {
     const didMountRef = useRef(false)
     const [ loading, setLoading ] = useState(true)
