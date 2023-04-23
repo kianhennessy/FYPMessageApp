@@ -13,12 +13,12 @@ import Button from "@mui/material/Button";
 import navlogo from "../images/GREYsecurecomms128.png";
 
 
-// API keys
-const API_KEY = process.env.REACT_APP_CHATENGINE_PUBLIC_KEY;
-const API_SECRET = process.env.REACT_APP_CHATENGINE_SECRET_KEY;
-
-process.env.REACT_APP_CHATENGINE_SECRET_KEY = API_SECRET
-process.env.REACT_APP_CHATENGINE_PUBLIC_KEY = API_KEY
+// // API keys
+// const API_KEY = process.env.REACT_APP_CHATENGINE_PUBLIC_KEY;
+// const API_SECRET = process.env.REACT_APP_CHATENGINE_SECRET_KEY;
+//
+// process.env.REACT_APP_CHATENGINE_SECRET_KEY = API_SECRET
+// process.env.REACT_APP_CHATENGINE_PUBLIC_KEY = API_KEY
 
 export default function Chats() {
     const didMountRef = useRef(false)
