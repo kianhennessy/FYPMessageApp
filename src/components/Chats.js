@@ -13,10 +13,6 @@ import Button from "@mui/material/Button";
 import navlogo from "../images/GREYsecurecomms128.png";
 
 
-// API keys
-const API_KEY = process.env.REACT_APP_CHATENGINE_PUBLIC_KEY;
-const API_SECRET = process.env.REACT_APP_CHATENGINE_SECRET_KEY;
-
 
 export default function Chats() {
     const didMountRef = useRef(false)
@@ -30,17 +26,13 @@ export default function Chats() {
     }
 
 
-
-
-
     // Create a new chat
     const createChat = () => {
-        const props = {publicKey: "8afaea8d-1514-4b90-bc09-a5f244987db7",
+        const props = {publicKey: '8afaea8d-1514-4b90-bc09-a5f244987db7',
             userName: user.email,
             userSecret: user.uid}
         const chat = newChat(props, {title: "New Chat"})
         console.log("Chat created: ", chat);
-
     }
 
 
@@ -61,7 +53,7 @@ export default function Chats() {
             axios.get(
                 'https://api.chatengine.io/users/me/',
                 { headers: {
-                        "project-id": "8afaea8d-1514-4b90-bc09-a5f244987db7",
+                        "project-id": '8afaea8d-1514-4b90-bc09-a5f244987db7',
                         "user-name": user.email,
                         "user-secret": user.uid
                     }}
@@ -78,7 +70,7 @@ export default function Chats() {
                             axios.post(
                                 'https://api.chatengine.io/users/',
                                 formdata,
-                                {headers: { "private-key": "8a4b4b5c-4b9a-4b9a-9b9a-4b9a4b9a4b9a"} }
+                                {headers: { "private-key": "69bf80d7-db82-427c-8830-1b78c5abdbd0"} }
                             )
                                 .then(() => setLoading(false))
                                 .catch(e => console.log('e', e.response))
@@ -100,8 +92,9 @@ export default function Chats() {
                     <div className='logo-tab'>
                         SecureComms
                     </div>
+                        <a href="/">
                             <img src={navlogo} alt="logo" className="logosize2"/>
-
+                        </a>
 
                     <div onClick={handleLogout} className='logout-tab'>
                         Logout
@@ -157,7 +150,7 @@ export default function Chats() {
                 }
                 onGetMessages={(chatId, messages) => {
                     console.log("Get Messages fired: ", messages);
-                    const props = {publicKey: "8afaea8d-1514-4b90-bc09-a5f244987db7",
+                    const props = {publicKey: '8afaea8d-1514-4b90-bc09-a5f244987db7',
                         userName: user.email,
                         userSecret: user.uid}
                     messages.map((message) => {

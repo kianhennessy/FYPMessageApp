@@ -28,7 +28,6 @@ function App() {
                 <Route path="/verify-mfa" component={VerifyMfa} />
                 <Route path="/login" component={Login} />
                 <Route path="/" component={Home} />
-
             </Switch>
           </AuthProvider>
         </Router>
