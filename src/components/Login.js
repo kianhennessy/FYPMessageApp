@@ -230,7 +230,10 @@ export default function Login() {
         <ThemeProvider theme={themeDark}>
             <div>
                 <Helmet>
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+                    <meta name="Log in page" content="The log in page for SecureComms. Users can log in to their already
+                    registered accounts via email and password. Users can also log in via Google their Google account.
+                    After successfully logging in, users will be sent a verification code to their phone number.
+                    ">
                     </meta>
                 </Helmet>
             </div>
@@ -400,30 +403,6 @@ export default function Login() {
                                 </div>
                             </Grid>
                         </Grid>
-
-
-
-
-                        {/*<TextField*/}
-                        {/*    placeholder="Verify code"*/}
-                        {/*    required*/}
-                        {/*    fullWidth*/}
-                        {/*    type="text"*/}
-                        {/*    id="verification-code-input"*/}
-                        {/*    value={code}*/}
-                        {/*    onChange={handleCodeChange}*/}
-                        {/*    margin={"dense"}*/}
-                        {/*    padding={"dense"}*/}
-                        {/*/>*/}
-
-                        {/*<Button*/}
-                        {/*    onClick={handleVerifyCode}*/}
-                        {/*    fullWidth*/}
-                        {/*    variant="contained"*/}
-                        {/*    sx={{ mt: 3, mb: 2 }}*/}
-                        {/*>*/}
-                        {/*    Verify Code*/}
-                        {/*</Button>*/}
 
                         <Grid container>
                             <Grid item xs>
