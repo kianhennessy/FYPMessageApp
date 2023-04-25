@@ -1,12 +1,22 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
+
+const FIREBASE_API_KEY = process.env.REACT_APP_FIREBASE_API_KEY
+const FIREBASE_AUTH_DOMAIN = process.env.REACT_APP_FIREBASE_AUTH_DOMAIN
+const FIREBASE_PROJECT_ID = process.env.REACT_APP_FIREBASE_PROJECT_ID
+const FIREBASE_STORAGE_BUCKET = process.env.REACT_APP_FIREBASE_STORAGE_BUCKET
+const FIREBASE_MESSAGING_SENDER_ID = process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID
+const FIREBASE_APP_ID = process.env.REACT_APP_FIREBASE_APP_ID
+const FIREBASE_MEASUREMENT_ID = process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+
+
 export const auth = firebase.initializeApp({
-    apiKey: "AIzaSyD2O1330XlDbu9ovXlqLOUy5aIct0ZB46I",
-    authDomain: "project-57eb2.firebaseapp.com",
-    projectId: "project-57eb2",
-    storageBucket: "project-57eb2.appspot.com",
-    messagingSenderId: "208101619513",
-    appId: "1:208101619513:web:076172c575b2ba9d5edae8",
-    measurementId: "G-3R3PG5W4CF"
+    apiKey: FIREBASE_API_KEY,
+    authDomain: FIREBASE_AUTH_DOMAIN,
+    projectId: FIREBASE_PROJECT_ID,
+    storageBucket: FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+    appId: FIREBASE_APP_ID,
+    measurementId: FIREBASE_MEASUREMENT_ID
 }).auth()
