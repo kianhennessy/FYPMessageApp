@@ -47,10 +47,7 @@ export default function Chats() {
                 history.push("/")
                 return
             }
-
-
-
-
+            
             axios.get(
                 'https://api.chatengine.io/users/me/',
                 { headers: {
