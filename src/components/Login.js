@@ -68,6 +68,10 @@ const themeDark = createTheme({
 
 export default function Login() {
 
+
+
+
+
     const [verificationId, setVerificationId] = useState(null);
     const [code, setCode] = useState("");
 
@@ -227,16 +231,15 @@ export default function Login() {
 
     return (
 
+
+
         <ThemeProvider theme={themeDark}>
-            <div>
-                <Helmet>
-                    <meta name="Log in page" content="The log in page for SecureComms. Users can log in to their already
-                    registered accounts via email and password. Users can also log in via Google their Google account.
-                    After successfully logging in, users will be sent a verification code to their phone number.
-                    ">
-                    </meta>
-                </Helmet>
-            </div>
+            <Helmet>
+                <title>Login - SecureComms</title>
+                <meta name="description" content="Log in to your SecureComms account and access our secure communication platform." />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta charset="UTF-8" />
+            </Helmet>
             <Snackbar open={showErrorAlert} autoHideDuration={5000} onClose={() => setShowErrorAlert(false)} >
                 <Alert onClose={() => setShowErrorAlert(false)} severity="error" sx={{ width: '100%' }}>
                     Please enter a valid email address

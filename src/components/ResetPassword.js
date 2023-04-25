@@ -24,6 +24,7 @@ import Image from "mui-image";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import navlogo from "../images/GREYsecurecomms128.png";
+import {Helmet} from "react-helmet";
 
 const themeDark = createTheme({
     palette: {
@@ -103,6 +104,13 @@ function ResetPassword(){
     return (
 
         <ThemeProvider theme={themeDark}>
+
+            <Helmet>
+                <title>Login - SecureComms</title>
+                <meta name="description" content="Log in to your SecureComms account and access our secure communication platform." />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta charset="UTF-8" />
+            </Helmet>
 
             <Snackbar open={showAlert}>
                 <Alert onClose={() => setShowAlert(false)} severity="success" sx={{ width: '100%' }}>

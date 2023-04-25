@@ -23,6 +23,7 @@ import navlogo from "../images/GREYsecurecomms128.png";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import logo from '../images/securecomms128.png';
 import Image from "mui-image";
+import {Helmet} from "react-helmet";
 
 
 const themeDark = createTheme({
@@ -137,6 +138,12 @@ function SignUp() {
 
 
         <ThemeProvider theme={themeDark}>
+            <Helmet>
+                <title>Login - SecureComms</title>
+                <meta name="description" content="Log in to your SecureComms account and access our secure communication platform." />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta charset="UTF-8" />
+            </Helmet>
             <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
             <CssBaseline />
 

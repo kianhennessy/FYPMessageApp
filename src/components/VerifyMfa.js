@@ -23,6 +23,7 @@ import { Alert } from '@mui/material';
 import Snackbar from "@mui/material/Snackbar";
 import logo from "../images/securecomms128.png";
 import Image from "mui-image";
+import {Helmet} from "react-helmet";
 
 const themeDark = createTheme({
     palette: {
@@ -114,6 +115,13 @@ function VerifyMfa() {
     return (
 
         <ThemeProvider theme={themeDark}>
+            <Helmet>
+                <title>Login - SecureComms</title>
+                <meta name="description" content="Log in to your SecureComms account and access our secure communication platform." />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta charset="UTF-8" />
+            </Helmet>
+
             <Snackbar open={showSuccessAlert}>
                 <Alert onClose={() => setShowSuccessAlert(false)} severity="success" sx={{ width: '100%' }}>
                     successfully enrolled in MFA, redirecting to login page

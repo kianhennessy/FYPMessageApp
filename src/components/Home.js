@@ -31,6 +31,7 @@ import twofa from '../images/2fa.png';
 import logo from '../images/securecomms.png';
 import navlogo from '../images/GREYsecurecomms128.png';
 import footerlogo from '../images/securecomms128.png';
+import {Helmet} from "react-helmet";
 
 
 const themeDark = createTheme({
@@ -126,6 +127,12 @@ export default function Home() {
     return (
         <React.Fragment>
             <ThemeProvider theme={themeDark}>
+                <Helmet>
+                    <title>Login - SecureComms</title>
+                    <meta name="description" content="Log in to your SecureComms account and access our secure communication platform." />
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                    <meta charset="UTF-8" />
+                </Helmet>
             <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
             <CssBaseline />
             <AppBar
