@@ -70,8 +70,6 @@ export default function Login() {
 
 
 
-
-
     const [verificationId, setVerificationId] = useState(null);
     const [code, setCode] = useState("");
 
@@ -267,7 +265,7 @@ export default function Login() {
             </Snackbar>
             <Snackbar open={showCodeSentAlert} autoHideDuration={5000} onClose={() => setShowCodeSentAlert(false)} >
                 <Alert onClose={() => setShowCodeSentAlert(false)} severity="info" sx={{ width: '100%' }}>
-                    2FA code has been texted to your phone
+                    2FA code has been sent to your phone
                 </Alert>
             </Snackbar>
 
