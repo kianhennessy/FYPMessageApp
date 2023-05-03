@@ -10,7 +10,8 @@ const FIREBASE_MESSAGING_SENDER_ID = process.env.REACT_APP_FIREBASE_MESSAGING_SE
 const FIREBASE_APP_ID = process.env.REACT_APP_FIREBASE_APP_ID
 const FIREBASE_MEASUREMENT_ID = process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 
-
+// Firebase configuration keys
+// These keys are generated when you create a Firebase project
 export const auth = firebase.initializeApp({
     apiKey: FIREBASE_API_KEY,
     authDomain: FIREBASE_AUTH_DOMAIN,
